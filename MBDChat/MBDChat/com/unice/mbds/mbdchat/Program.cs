@@ -11,9 +11,9 @@ namespace MBDChat.com.unice.mbds.mbdchat
     {
         static void main(String[] args)
         {
-            int port = 2323;
-
-            ChatRoom chat = new ChatRoom(port);
+            ChatRoomController chatroomController = ChatRoomController.Instance;
+            chatroomController.port = 2323;
+            chatroomController.startUp();
 
             // faire un broadcast de hello : chat.sendHelloBroadcast
         }

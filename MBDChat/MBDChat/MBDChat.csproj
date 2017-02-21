@@ -64,9 +64,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="com\unice\mbds\mbdchat\model\clientServer\ChatRoom.cs" />
-    <Compile Include="com\unice\mbds\mbdchat\model\clientServer\Receipter.cs" />
-    <Compile Include="com\unice\mbds\mbdchat\model\clientServer\Sender.cs" />
+    <Compile Include="com\unice\mbds\mbdchat\controller\clientServer\ChatRoomController.cs" />
+    <Compile Include="com\unice\mbds\mbdchat\controller\clientServer\Receipter.cs" />
+    <Compile Include="com\unice\mbds\mbdchat\controller\clientServer\Sender.cs" />
     <Compile Include="com\unice\mbds\mbdchat\model\message\GoodByeData.cs" />
     <Compile Include="com\unice\mbds\mbdchat\model\message\HelloData.cs" />
     <Compile Include="com\unice\mbds\mbdchat\model\message\Message.cs" />

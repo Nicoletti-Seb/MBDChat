@@ -8,6 +8,6 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.clientServer
 {
     public interface Receipter
     {
-        void receiptMessage();
+        void receiptMessage(string message);
     }
 }

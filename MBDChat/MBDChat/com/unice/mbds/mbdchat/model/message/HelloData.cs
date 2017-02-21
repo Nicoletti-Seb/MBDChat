@@ -10,6 +10,6 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.message
     {
         private string addr_source;
         private string port_source;
-        private List<Pair> pairs;
+        private List<Pair> pairs = new List<Pair>();
     }
 }

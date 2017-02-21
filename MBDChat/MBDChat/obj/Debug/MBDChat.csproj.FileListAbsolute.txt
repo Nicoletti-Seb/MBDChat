@@ -12,3 +12,4 @@ C:\Users\MBDS\Documents\Visual Studio 2012\Projects\MBDChat\MBDChat\MBDChat\obj\
 C:\Users\MBDS\Documents\Visual Studio 2012\Projects\MBDChat\MBDChat\MBDChat\obj\Debug\MBDChat.csproj.GenerateResource.Cache
 C:\Users\MBDS\Documents\Visual Studio 2012\Projects\MBDChat\MBDChat\MBDChat\obj\Debug\MBDChat.exe
 C:\Users\MBDS\Documents\Visual Studio 2012\Projects\MBDChat\MBDChat\MBDChat\obj\Debug\MBDChat.pdb
+C:\Users\MBDS\Documents\Visual Studio 2012\Projects\MBDChat\MBDChat\MBDChat\obj\Debug\MBDChat.csprojResolveAssemblyReference.cache
