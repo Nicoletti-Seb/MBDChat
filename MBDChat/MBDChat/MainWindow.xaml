@@ -7,6 +7,30 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <ListView Grid.Column="0" Name="chatList" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+        <ListView Grid.Column="2" Name="usersList" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="4*"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <ListBox Grid.Row="0" Name="MessagesList" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0" Name="TextToSend" Margin="5"/>
+                <Button Grid.Column="1" x:Name="SendButton" Margin="20, 20" Content="Envoyer" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+            </Grid>
+        </Grid>
     </Grid>
 </Window>
