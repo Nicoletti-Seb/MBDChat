@@ -1,22 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace MBDChat.com.unice.mbds.mbdchat.model.message
 {
-    class HelloData : PayLoad
+    [DataContract]
+    public class HelloData : PayLoad
     {
-        private string addr_source;
-        private string port_source;
-        private List<Pair> pairs = new List<Pair>();
+        [DataMember]
+        public string Addr_source { get; set; } 
+
+        [DataMember]
+        private string Port_source { get; set; } 
+
+        [DataMember] 
+        private List<Pair> Pairs { get; set; } 
 
         public HelloData(string addr_source, string port_source, List<Pair> pairs)
         {
-            this.addr_source = addr_source;
-            this.port_source = port_source;
-            this.pairs = pairs;
+            Addr_source = addr_source;
+            Port_source = port_source;
+            Pairs = pairs;
         }
     }
 }

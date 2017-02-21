@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MBDChat.com.unice.mbds.mbdchat.model
 {
-    abstract class Message
+    public class Message
     {
         private string type;
         private PayLoad data;

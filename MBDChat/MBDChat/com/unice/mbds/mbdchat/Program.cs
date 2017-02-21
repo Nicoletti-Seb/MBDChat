@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MBDChat.com.unice.mbds.mbdchat
 {
-    class Program
+    public class Program
     {
         static void main(String[] args)
         {
@@ -21,7 +21,7 @@ namespace MBDChat.com.unice.mbds.mbdchat
             pairs.Add(new Pair("192.168.4.50", "2323"));
             HelloData hd = new HelloData("127.0.0.1", "192.168.56.1", pairs);
 
-            Console.Write("ici : " + hd.ToString());
+            Console.WriteLine("ici : " + hd.ToString());
 
             Console.ReadLine();
             // faire un broadcast de hello : chat.sendHelloBroadcast
