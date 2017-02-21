@@ -1,20 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace MBDChat.com.unice.mbds.mbdchat.model
 {
+    [DataContract]
     public class Message
     {
-        private string type;
-        private PayLoad data;
+        [DataMember]
+        public string Type { get; set; }
 
-        public Message(string type, PayLoad payload)
+        [DataMember]
+        public PayLoad Data { get; set; }
+
+        public Message(string type, PayLoad data)
         {
-            this.type = type;
-            this.data = payload;
+            Type = type;
+            Data = data;
         }
     }
 }

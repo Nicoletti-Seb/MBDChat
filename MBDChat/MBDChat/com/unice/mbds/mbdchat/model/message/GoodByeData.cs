@@ -8,6 +8,11 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.message
 {
     public class GoodByeData : PayLoad
     {
-        private string addr;
+        public string Addr { get; set; }
+
+        public GoodByeData(string addr)
+        {
+            Addr = addr;
+        }
     }
 }

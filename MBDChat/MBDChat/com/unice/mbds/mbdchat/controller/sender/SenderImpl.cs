@@ -13,8 +13,6 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.sender
 {
     public class SenderImpl : Sender
     {
-        private static readonly int PORT = 2323;
-
         private List<Pair> nodes;
         private Socket socket;
 
@@ -28,7 +26,7 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.sender
         {
             foreach(Pair pair in nodes)
             {
-                Message message = new Message("HELLO", new HelloData(pair.addr, pair.port, nodes));
+                Message message = new Message("HELLO", new HelloData(pair.Addr, pair.Port, nodes));
                 byte[] msg = Encoding.ASCII.GetBytes(message.ToString());
                 socket.SendTo(msg, pair.ep);
             }

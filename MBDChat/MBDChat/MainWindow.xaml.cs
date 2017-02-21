@@ -1,4 +1,4 @@
-﻿using MBDChat.com.unice.mbds.mbdchat.model.clientServer;
+using MBDChat.com.unice.mbds.mbdchat.model.clientServer;
 using MBDChat.com.unice.mbds.mbdchat.model.message;
 using System;
 using System.Collections.Generic;
@@ -29,6 +29,14 @@ namespace MBDChat
             ChatRoomController controller =  ChatRoomController.Instance;
             controller.addPair(new Pair("192.168.0.1", 2323));
             controller.startUp();
+
+            /*List<Pair> pairs = new List<Pair>();
+            pairs.Add(new Pair("192.168.0.5", "2323"));
+            pairs.Add(new Pair("192.168.0.45", "2323"));
+            Message msg = new Message("HELLO", new HelloData("127.0.0.1", "2323", pairs));
+
+            string json = ChatRoomController.toJson(msg);
+            Console.WriteLine("json : " + json);*/
         }
     }
 }
