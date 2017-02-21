@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MBDChat.com.unice.mbds.mbdchat.model.clientServer;
+using MBDChat.com.unice.mbds.mbdchat.model.message;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +25,10 @@ namespace MBDChat
         public MainWindow()
         {
             InitializeComponent();
+
+            ChatRoomController controller =  ChatRoomController.Instance;
+            controller.addPair(new Pair("192.168.0.1", 2323));
+            controller.startUp();
         }
     }
 }

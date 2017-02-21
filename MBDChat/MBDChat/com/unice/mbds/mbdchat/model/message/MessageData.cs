@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MBDChat.com.unice.mbds.mbdchat.model.message
 {
-    class MessageData : PayLoad
+    public class MessageData : PayLoad
     {
         private string nickname;
         private string msg;

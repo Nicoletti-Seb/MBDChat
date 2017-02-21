@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace MBDChat.com.unice.mbds.mbdchat.model.message
 {
-    class Pair
+    public class Pair
     {
-        private string addr;
-        private string port;
+        public string addr { get; }
+        public int port { get; }
 
-        public Pair(string addr, string port)
+        public Pair(string addr, int port)
         {
             this.addr = addr;
             this.port = port;
@@ -23,7 +23,7 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.message
             get
             {
                 IPAddress target = IPAddress.Parse(addr);
-                IPEndPoint ep = new IPEndPoint(target, Int32.Parse(port));
+                IPEndPoint ep = new IPEndPoint(target, port);
                 return ep;
             }
         }
