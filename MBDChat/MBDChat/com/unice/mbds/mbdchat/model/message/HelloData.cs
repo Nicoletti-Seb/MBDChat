@@ -14,10 +14,10 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.message
         public string Addr_source { get; set; } 
 
         [DataMember]
-        private string Port_source { get; set; } 
+        public string Port_source { get; set; } 
 
         [DataMember] 
-        private List<Pair> Pairs { get; set; } 
+        public List<Pair> Pairs { get; set; } 
 
         public HelloData(string addr_source, string port_source, List<Pair> pairs)
         {

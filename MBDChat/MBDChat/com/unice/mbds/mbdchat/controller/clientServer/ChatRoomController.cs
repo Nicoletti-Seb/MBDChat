@@ -1,9 +1,11 @@
 ﻿using MBDChat.com.unice.mbds.mbdchat.model.message;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -56,6 +58,29 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.clientServer
         public void receiptMessage(string message)
         {
             throw new NotImplementedException();
+        }
+
+        public static string toJson(Message message)
+        {
+            DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Message));
+
+            MemoryStream stream1 = new MemoryStream();
+            ser.WriteObject(stream1, message);
+            stream1.Position = 0;
+            StreamReader sr = new StreamReader(stream1);
+            Console.WriteLine(sr.ReadToEnd());
+
+            return sr.ReadToEnd();
+        }
+
+        public static Message toMessage(string json)
+        {
+            DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Message));
+
+            MemoryStream stream1 = new MemoryStream();
+            Message msg = (Message)ser.ReadObject(stream1);
+
+            return msg;
         }
     }
 }

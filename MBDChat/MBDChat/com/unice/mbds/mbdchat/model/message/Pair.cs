@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 namespace MBDChat.com.unice.mbds.mbdchat.model.message
 {
     [DataContract]
-    class Pair
+    public class Pair
     {
         [DataMember]
-        private string Addr { get; set; } 
+        public string Addr { get; set; } 
 
         [DataMember]
-        private string Port { get; set; } 
+        public string Port { get; set; } 
 
         public Pair(string addr, string port)
         {

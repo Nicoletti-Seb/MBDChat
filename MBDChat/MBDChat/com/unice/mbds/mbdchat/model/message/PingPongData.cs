@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 namespace MBDChat.com.unice.mbds.mbdchat.model.message
 {
     [DataContract]
-    class PingPongData : PayLoad
+    public class PingPongData : PayLoad
     {
         [DataMember]
-        private string Addr_source { get; set; } 
+        public string Addr_source { get; set; } 
 
         [DataMember]
-        private string Timestamp { get; set; }
+        public string Timestamp { get; set; }
 
         public PingPongData(string addr_source, string timestamp)
         {

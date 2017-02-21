@@ -11,22 +11,22 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.message
     public class MessageData : PayLoad
     {
         [DataMember]
-        private string Nickname { get; set; } 
+        public string Nickname { get; set; } 
 
         [DataMember]
-        private string Msg { get; set; } 
+        public string Msg { get; set; } 
 
         [DataMember]
-        private string Timestamp { get; set; } 
+        public string Timestamp { get; set; } 
 
         [DataMember]
-        private string Destinataire { get; set; } 
+        public string Destinataire { get; set; } 
 
         [DataMember]
-        private string Hash { get; set; } 
+        public string Hash { get; set; } 
 
         [DataMember]
-        private string Rootedby { get; set; } 
+        public string Rootedby { get; set; } 
 
         public MessageData(string nickname, string msg, string timestamp, string destinataire, string hash, string rootedby)
         {

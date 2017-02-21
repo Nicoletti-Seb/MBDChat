@@ -38,6 +38,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -74,7 +75,6 @@
     <Compile Include="com\unice\mbds\mbdchat\model\message\Pair.cs" />
     <Compile Include="com\unice\mbds\mbdchat\model\message\PayLoad.cs" />
     <Compile Include="com\unice\mbds\mbdchat\model\message\PingPongData.cs" />
-    <Compile Include="com\unice\mbds\mbdchat\Program.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

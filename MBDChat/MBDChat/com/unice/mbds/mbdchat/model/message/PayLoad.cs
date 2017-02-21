@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 using MBDChat.com.unice.mbds.mbdchat.model.message;
 using System.IO;
 using System.Runtime.Serialization.Json;
+using System.Runtime.Serialization;
 
 namespace MBDChat.com.unice.mbds.mbdchat.model
 {
+    [DataContract]
     public abstract class PayLoad
     {
         
