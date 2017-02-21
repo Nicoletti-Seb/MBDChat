@@ -1,1 +1,14 @@
 C:\Users\53js-Seb\Desktop\Master_2_mbds\c#\MBDChat\MBDChat\MBDChat\bin\Debug\MBDChat.exe.config
+C:\Users\MBDS\Documents\Visual Studio 2012\Projects\MBDChat\MBDChat\MBDChat\obj\Debug\MainWindow.g.cs
+C:\Users\MBDS\Documents\Visual Studio 2012\Projects\MBDChat\MBDChat\MBDChat\obj\Debug\App.g.cs
+C:\Users\MBDS\Documents\Visual Studio 2012\Projects\MBDChat\MBDChat\MBDChat\obj\Debug\MBDChat_MarkupCompile.cache
+C:\Users\MBDS\Documents\Visual Studio 2012\Projects\MBDChat\MBDChat\MBDChat\obj\Debug\MBDChat_MarkupCompile.lref
+C:\Users\MBDS\Documents\Visual Studio 2012\Projects\MBDChat\MBDChat\MBDChat\bin\Debug\MBDChat.exe.config
+C:\Users\MBDS\Documents\Visual Studio 2012\Projects\MBDChat\MBDChat\MBDChat\bin\Debug\MBDChat.exe
+C:\Users\MBDS\Documents\Visual Studio 2012\Projects\MBDChat\MBDChat\MBDChat\bin\Debug\MBDChat.pdb
+C:\Users\MBDS\Documents\Visual Studio 2012\Projects\MBDChat\MBDChat\MBDChat\obj\Debug\MainWindow.baml
+C:\Users\MBDS\Documents\Visual Studio 2012\Projects\MBDChat\MBDChat\MBDChat\obj\Debug\MBDChat.g.resources
+C:\Users\MBDS\Documents\Visual Studio 2012\Projects\MBDChat\MBDChat\MBDChat\obj\Debug\MBDChat.Properties.Resources.resources
+C:\Users\MBDS\Documents\Visual Studio 2012\Projects\MBDChat\MBDChat\MBDChat\obj\Debug\MBDChat.csproj.GenerateResource.Cache
+C:\Users\MBDS\Documents\Visual Studio 2012\Projects\MBDChat\MBDChat\MBDChat\obj\Debug\MBDChat.exe
+C:\Users\MBDS\Documents\Visual Studio 2012\Projects\MBDChat\MBDChat\MBDChat\obj\Debug\MBDChat.pdb
