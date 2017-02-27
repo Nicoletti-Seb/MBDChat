@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 namespace MBDChat.com.unice.mbds.mbdchat.model.message
 {
     [DataContract]
+    [KnownType(typeof(HelloData))]
     public class HelloData : PayLoad
     {
         [DataMember]
@@ -17,7 +18,7 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.message
         public int Port_source { get; set; } 
 
         [DataMember] 
-        public List<Pair> Pairs { get; set; } 
+        public List<Pair> Pairs { get; set; }
 
         public HelloData(string addr_source, int port_source, List<Pair> pairs)
         {

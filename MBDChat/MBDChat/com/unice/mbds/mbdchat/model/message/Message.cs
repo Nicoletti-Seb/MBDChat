@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MBDChat.com.unice.mbds.mbdchat.model.message;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;

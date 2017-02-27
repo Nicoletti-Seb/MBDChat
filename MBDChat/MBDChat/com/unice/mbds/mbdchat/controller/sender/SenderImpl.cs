@@ -8,18 +8,28 @@ using System.Net;
 using MBDChat.com.unice.mbds.mbdchat.model;
 using System.Net.Sockets;
 using MBDChat.com.unice.mbds.mbdchat.model.message;
+using System.Runtime.Serialization.Json;
+using System.IO;
 
 namespace MBDChat.com.unice.mbds.mbdchat.controller.sender
 {
     public class SenderImpl : Sender
     {
+        
         private List<Pair> nodes;
         private Socket socket;
+
+        private DataContractJsonSerializer jsonParser;
+        private MemoryStream stream;
+        private StreamReader streamReader;
 
         public SenderImpl(Socket socket, List<Pair> nodes)
         {
             this.socket = socket;
             this.nodes = nodes;
+            this.jsonParser = new DataContractJsonSerializer(typeof(Message));
+            stream = new MemoryStream();
+            streamReader = new StreamReader(stream);
         }
 
         public void sendHelloBroadcast()
@@ -27,7 +37,8 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.sender
             foreach(Pair pair in nodes)
             {
                 Message message = new Message("HELLO", new HelloData(pair.Addr, pair.Port, nodes));
-                byte[] msg = Encoding.ASCII.GetBytes(message.ToString());
+
+                byte[] msg = Encoding.ASCII.GetBytes(parseToJson(message));
                 socket.SendTo(msg, pair.ep);
             }
             
@@ -43,8 +54,20 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.sender
 
         public void sendMessage(Message message, Pair pair)
         {
-            byte[] msg = Encoding.ASCII.GetBytes(message.ToString());
+            byte[] msg = Encoding.ASCII.GetBytes(parseToJson(message));
             socket.SendTo(msg, pair.ep);
+        }
+
+        private string parseToJson(Message message)
+        {
+            jsonParser.WriteObject(stream, message);
+            stream.Position = 0;
+           
+            string result = streamReader.ReadToEnd();
+            Console.WriteLine(result);
+
+            stream.Flush();
+            return result;
         }
     }
 }
