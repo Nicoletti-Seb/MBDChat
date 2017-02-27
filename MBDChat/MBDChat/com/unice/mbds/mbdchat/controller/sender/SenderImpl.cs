@@ -33,6 +33,16 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.sender
             
         }
 
+        public void sendGoodBye()
+        {
+            foreach (Pair pair in nodes)
+            {
+                Message message = new Message("GOODBYE", new GoodByeData(pair.Addr));
+                byte[] msg = Encoding.ASCII.GetBytes(message.ToString());
+                socket.SendTo(msg, pair.ep);
+            }
+        }
+
         public void sendMessage(Message message)
         {
             foreach(Pair pair in nodes)
