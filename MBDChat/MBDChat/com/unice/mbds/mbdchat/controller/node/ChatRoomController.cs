@@ -14,11 +14,12 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.clientServer
 {
     public class ChatRoomController
     {
+        public string nickname { get { return "Seb&Leo"; } }
         public int port { get; set; }
         private Socket socket;
         private List<Pair> nodes = new List<Pair>();
         private List<ChatRoom> chatrooms = new List<ChatRoom>();
-        private Sender sender;
+        public Sender sender { get; set; }
 
         public static readonly ChatRoomController instance = new ChatRoomController();
 
@@ -46,6 +47,13 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.clientServer
         public void addPair(Pair pair)
         {
             nodes.Add(pair);
+        }
+
+        public static long UnixTimestampFromDateTime(DateTime date)
+        {
+            long unixTimestamp = date.Ticks - new DateTime(1970, 1, 1).Ticks;
+            unixTimestamp /= TimeSpan.TicksPerSecond;
+            return unixTimestamp;
         }
     }
 }

@@ -1,8 +1,10 @@
+using MBDChat.com.unice.mbds.mbdchat.model;
 using MBDChat.com.unice.mbds.mbdchat.model.clientServer;
 using MBDChat.com.unice.mbds.mbdchat.model.message;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -22,11 +24,13 @@ namespace MBDChat
     /// </summary>
     public partial class MainWindow : Window
     {
+        ChatRoomController controller = ChatRoomController.Instance;
+        SHA256 mySHA256 = new SHA256Managed();
+
         public MainWindow()
         {
             InitializeComponent();
-
-            ChatRoomController controller =  ChatRoomController.Instance;
+            
             controller.addPair(new Pair("192.168.0.1", 2323));
             controller.startUp();
 
@@ -37,6 +41,32 @@ namespace MBDChat
 
             string json = ChatRoomController.toJson(msg);
             Console.WriteLine("json : " + json);*/
+        }
+
+        void sendMessage(object sender, RoutedEventArgs e)
+        {
+            // check empty message
+            if (TextToSend.Text == "") { return; }
+
+            string type = "MESSAGE";
+            string nickname = controller.nickname;
+            string message = TextToSend.Text;
+            string timestamp = ChatRoomController.UnixTimestampFromDateTime(DateTime.Now).ToString();
+            string dest = "";
+            string hash = mySHA256.ComputeHash(Encoding.UTF8.GetBytes(type + nickname + message + timestamp + dest)).ToString();
+            Console.WriteLine("hash:" + hash);
+            string rootedby = controller.nickname;
+
+            MessageData msgData = new MessageData(nickname, message, timestamp, dest, hash, rootedby);
+            Message msg = new Message(type, msgData);
+
+            controller.sender.sendMessage(msg);
+
+            // add msg in messagelist
+            MessagesList.Items.Add(message);
+
+            // refresh textarea message
+            TextToSend.Text = "";
         }
     }
 }
