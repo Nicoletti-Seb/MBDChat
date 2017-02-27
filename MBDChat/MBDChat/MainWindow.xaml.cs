@@ -25,7 +25,6 @@ namespace MBDChat
     public partial class MainWindow : Window
     {
         ChatRoomController controller = ChatRoomController.Instance;
-        SHA256 mySHA256 = new SHA256Managed();
 
         public MainWindow()
         {
@@ -54,8 +53,7 @@ namespace MBDChat
             string message = TextToSend.Text;
             string timestamp = ChatRoomController.UnixTimestampFromDateTime(DateTime.Now).ToString();
             string dest = "";
-            string hash = mySHA256.ComputeHash(Encoding.UTF8.GetBytes(type + nickname + message + timestamp + dest)).ToString();
-            Console.WriteLine("hash:" + hash);
+            string hash = ChatRoomController.toHash(type, nickname, message, timestamp, dest);
             string rootedby = controller.nickname;
 
             MessageData msgData = new MessageData(nickname, message, timestamp, dest, hash, rootedby);
@@ -68,6 +66,12 @@ namespace MBDChat
 
             // refresh textarea message
             TextToSend.Text = "";
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            controller.sender.sendGoodByeBroadcast();
+            Console.WriteLine("GoodBye");
         }
     }
 }
