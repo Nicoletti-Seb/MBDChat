@@ -27,7 +27,7 @@ namespace MBDChat
             InitializeComponent();
 
             ChatRoomController controller =  ChatRoomController.Instance;
-            controller.addPair(new Pair("192.168.0.1", 2323));
+            controller.addPair(new Pair("127.0.0.1", 2323));
             controller.startUp();
 
             /*List<Pair> pairs = new List<Pair>();

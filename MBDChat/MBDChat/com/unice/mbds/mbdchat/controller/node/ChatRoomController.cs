@@ -1,4 +1,5 @@
 ﻿using MBDChat.com.unice.mbds.mbdchat.controller.node;
+using MBDChat.com.unice.mbds.mbdchat.controller.receipter;
 using MBDChat.com.unice.mbds.mbdchat.controller.sender;
 using MBDChat.com.unice.mbds.mbdchat.model.message;
 using System;
@@ -19,6 +20,7 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.clientServer
         private List<Pair> nodes = new List<Pair>();
         private List<ChatRoom> chatrooms = new List<ChatRoom>();
         private Sender sender;
+        private Receipter receipter;
 
         public static readonly ChatRoomController instance = new ChatRoomController();
 
@@ -32,9 +34,15 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.clientServer
             thread.start();
             */
 
+            //Init connexion
             socket = new Socket(AddressFamily.InterNetwork,SocketType.Dgram,ProtocolType.Udp);
-            sender = new SenderImpl(socket, nodes);
 
+            //Receipter
+            receipter = new ReceipterImp();
+            receipter.startListen(port);
+
+            //Sender
+            sender = new SenderImpl(socket, nodes);
             sender.sendHelloBroadcast();
         }
 
