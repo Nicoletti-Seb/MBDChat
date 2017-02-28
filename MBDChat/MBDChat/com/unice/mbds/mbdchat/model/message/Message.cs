@@ -10,21 +10,17 @@ using System.Threading.Tasks;
 
 namespace MBDChat.com.unice.mbds.mbdchat.model
 {
-    [DataContract]
+    [DataContract(Name="MessageParent")]
     public class Message
     {
         [DataMember]
         public string Type { get; set; }
 
-        [DataMember]
-        public PayLoad Data { get; set; }
-
         public Message() { }
 
-        public Message(string type, PayLoad data)
+        public Message(string type)
         {
             Type = type;
-            Data = data;
         }
     }
 }

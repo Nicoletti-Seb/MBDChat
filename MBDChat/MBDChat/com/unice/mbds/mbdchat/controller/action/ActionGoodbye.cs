@@ -17,7 +17,7 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.action
             base.onReceiver(message);
 
             // remove from nodes
-            string addr = ((GoodByeData)message.Data).Addr;
+            string addr = ((GoodByeMessage)message).Addr;
             controller.removePair(addr);
         }
     }

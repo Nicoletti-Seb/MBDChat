@@ -25,11 +25,11 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.action
         {
             base.onReceiver(message);
 
-            string addr = ((PingPongData)message.Data).Addr_source;
+            string addr = ((PingPongMessage)message).Addr_source;
             // timestamp pour mesure la latence
 
             // check le port
-            Message msgToSend = new Message("PING/PONG", new PingPongData(controller.getIpLocal(), 2323, Parser.TimestampNow().ToString()));
+            Message msgToSend = new PingPongMessage(controller.getIpLocal(), 2323, Parser.TimestampNow().ToString());
             controller.sender.sendMessage(msgToSend);
         }
     }

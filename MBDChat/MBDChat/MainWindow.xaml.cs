@@ -46,8 +46,7 @@ namespace MBDChat
             string hash = Parser.toHash(type, nickname, message, timestamp, dest);
             string rootedby = controller.nickname;
 
-            MessageData msgData = new MessageData(nickname, message, timestamp, dest, hash, rootedby);
-            Message msg = new Message(type, msgData);
+            MessageMess msg = new MessageMess(nickname, message, timestamp, dest, hash, rootedby);
 
             controller.sender.sendMessage(msg);
 

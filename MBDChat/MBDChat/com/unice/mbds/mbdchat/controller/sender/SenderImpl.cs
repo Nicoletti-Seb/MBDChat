@@ -31,7 +31,7 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.sender
         {
             foreach(Pair pair in nodes)
             {
-                Message message = new Message("HELLO", new HelloData(pair.Addr, pair.Port, nodes));
+                Message message = new HelloMessage(pair.Addr, pair.Port, nodes);
                 sendMessage(message, pair);
             }
             
@@ -41,7 +41,7 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.sender
         {
             foreach (Pair pair in nodes)
             {
-                Message message = new Message("GOODBYE", new GoodByeData(pair.Addr));
+                Message message =  new GoodByeMessage(pair.Addr);
                 sendMessage(message, pair);
             }
         }
@@ -50,7 +50,7 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.sender
         {
             foreach (Pair pair in nodes)
             {
-                Message message = new Message("PING/PONG", new PingPongData(pair.Addr, this.port, Parser.TimestampNow().ToString()));
+                Message message = new PingPongMessage(pair.Addr, this.port, Parser.TimestampNow().ToString());
                 sendMessage(message, pair);
             }
         }

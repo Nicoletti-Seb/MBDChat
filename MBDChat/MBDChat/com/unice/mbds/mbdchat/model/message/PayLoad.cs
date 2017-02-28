@@ -10,11 +10,11 @@ using System.Runtime.Serialization;
 
 namespace MBDChat.com.unice.mbds.mbdchat.model
 {
-    [DataContract]
-    [KnownType(typeof(HelloData))]
+    [DataContract(Name="",Namespace ="")]
+   /* [KnownType(typeof(HelloData))]
     [KnownType(typeof(GoodByeData))]
     [KnownType(typeof(MessageData))]
-    [KnownType(typeof(PingPongData))]
+    [KnownType(typeof(PingPongData))]*/
     public abstract class PayLoad
     {
         

@@ -88,17 +88,17 @@
     <Compile Include="com\unice\mbds\mbdchat\controller\node\ChatRoom.cs" />
     <Compile Include="com\unice\mbds\mbdchat\controller\node\ChatRoomController.cs" />
     <Compile Include="com\unice\mbds\mbdchat\controller\receipter\Receipter.cs" />
-    <Compile Include="com\unice\mbds\mbdchat\controller\receipter\ReceipterImp.cs" />
+    <Compile Include="com\unice\mbds\mbdchat\model\message\ReceipterImp.cs" />
     <Compile Include="com\unice\mbds\mbdchat\controller\sender\Sender.cs" />
     <Compile Include="com\unice\mbds\mbdchat\controller\sender\SenderImpl.cs" />
     <Compile Include="com\unice\mbds\mbdchat\controller\utils\Parser.cs" />
-    <Compile Include="com\unice\mbds\mbdchat\model\message\GoodByeData.cs" />
-    <Compile Include="com\unice\mbds\mbdchat\model\message\HelloData.cs" />
+    <Compile Include="com\unice\mbds\mbdchat\model\message\GoodByeMessage.cs" />
+    <Compile Include="com\unice\mbds\mbdchat\model\message\HelloMessage.cs" />
     <Compile Include="com\unice\mbds\mbdchat\model\message\Message.cs" />
-    <Compile Include="com\unice\mbds\mbdchat\model\message\MessageData.cs" />
+    <Compile Include="com\unice\mbds\mbdchat\model\message\MessageMess.cs" />
     <Compile Include="com\unice\mbds\mbdchat\model\message\Pair.cs" />
     <Compile Include="com\unice\mbds\mbdchat\model\message\PayLoad.cs" />
-    <Compile Include="com\unice\mbds\mbdchat\model\message\PingPongData.cs" />
+    <Compile Include="com\unice\mbds\mbdchat\model\message\PingPongMessage.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
