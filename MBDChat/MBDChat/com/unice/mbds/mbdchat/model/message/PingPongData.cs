@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 namespace MBDChat.com.unice.mbds.mbdchat.model.message
 {
     [DataContract]
-    [KnownType(typeof(PingPongData))]
     public class PingPongData : PayLoad
     {
         [DataMember]

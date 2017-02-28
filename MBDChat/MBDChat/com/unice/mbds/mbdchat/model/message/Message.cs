@@ -19,6 +19,8 @@ namespace MBDChat.com.unice.mbds.mbdchat.model
         [DataMember]
         public PayLoad Data { get; set; }
 
+        public Message() { }
+
         public Message(string type, PayLoad data)
         {
             Type = type;
