@@ -9,20 +9,12 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.action
 {
     public class ActionHello : Action
     {
-        public ActionHello(string type) : base(type){}
+        public ActionHello() : base("HELLO"){}
 
-        public override void onSender(Message message)
-        {
-            base.onSender(message);
-
-            controller.sender.sendMessage(message);
-        }
 
         public override void onReceiver(Message message)
         {
             base.onReceiver(message);
-
-
         }
     }
 }

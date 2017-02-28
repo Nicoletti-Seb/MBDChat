@@ -10,15 +10,7 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.action
 {
     public class ActionGoodBye: Action
     {
-        public ActionGoodBye(string type) : base(type){}
-
-        public override void onSender(Message message)
-        {
-            base.onSender(message);
-
-            // send GoodBye all
-            controller.sender.sendGoodByeBroadcast();
-        }
+        public ActionGoodBye() : base("GOODBYE"){}
 
         public override void onReceiver(Message message)
         {

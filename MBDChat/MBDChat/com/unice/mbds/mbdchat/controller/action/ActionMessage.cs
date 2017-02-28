@@ -9,7 +9,7 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.action
 {
     public class ActionMessage: Action
     {
-        public ActionMessage(string type) : base(type){}
+        public ActionMessage() : base("MESSAGE"){}
 
         public override void onSender(Message message)
         {

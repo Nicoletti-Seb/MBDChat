@@ -12,7 +12,7 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.action
 {
     public class ActionPingPong: Action
     {
-        public ActionPingPong(string type) : base(type){}
+        public ActionPingPong() : base("PING/PONG"){}
 
         public override void onSender(Message message)
         {

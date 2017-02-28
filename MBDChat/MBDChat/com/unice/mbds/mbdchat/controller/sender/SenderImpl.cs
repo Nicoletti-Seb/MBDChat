@@ -1,5 +1,4 @@
 ﻿using MBDChat.com.unice.mbds.mbdchat.model.clientServer;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,9 +7,8 @@ using System.Net;
 using MBDChat.com.unice.mbds.mbdchat.model;
 using System.Net.Sockets;
 using MBDChat.com.unice.mbds.mbdchat.model.message;
-using System.Runtime.Serialization.Json;
-using System.IO;
 using MBDChat.com.unice.mbds.mbdchat.controller.utils;
+using MBDChat.com.unice.mbds.mbdchat.controller.action;
 
 namespace MBDChat.com.unice.mbds.mbdchat.controller.sender
 {
@@ -19,12 +17,14 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.sender
         private List<Pair> nodes;
         private Socket socket;
         private int port;
+        private List<Action> actions;
 
-        public SenderImpl(Socket socket, List<Pair> nodes, int port)
+        public SenderImpl(Socket socket, List<Pair> nodes, int port, List<Action> actions)
         {
             this.socket = socket;
             this.nodes = nodes;
             this.port = port;
+            this.actions = actions;
         }
 
         public void sendHelloBroadcast()
@@ -32,9 +32,7 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.sender
             foreach(Pair pair in nodes)
             {
                 Message message = new Message("HELLO", new HelloData(pair.Addr, pair.Port, nodes));
-
-                byte[] msg = Encoding.ASCII.GetBytes(Parser.parseToJson(message));
-                socket.SendTo(msg, pair.ep);
+                sendMessage(message, pair);
             }
             
         }
@@ -44,9 +42,7 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.sender
             foreach (Pair pair in nodes)
             {
                 Message message = new Message("GOODBYE", new GoodByeData(pair.Addr));
-
-                byte[] msg = Encoding.ASCII.GetBytes(message.ToString());
-                socket.SendTo(msg, pair.ep);
+                sendMessage(message, pair);
             }
         }
 
@@ -55,9 +51,7 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.sender
             foreach (Pair pair in nodes)
             {
                 Message message = new Message("PING/PONG", new PingPongData(pair.Addr, this.port, Parser.TimestampNow().ToString()));
-
-                byte[] msg = Encoding.ASCII.GetBytes(Parser.parseToJson(message));
-                socket.SendTo(msg, pair.ep);
+                sendMessage(message, pair);
             }
         }
 
@@ -73,6 +67,14 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.sender
         {
             byte[] msg = Encoding.ASCII.GetBytes(Parser.parseToJson(message));
             socket.SendTo(msg, pair.ep);
+
+            foreach (Action action in actions)
+            {
+                if (action.Type == message.Type)
+                {
+                    action.onSender(message);
+                }
+            }
         }
     }
 }
