@@ -2,20 +2,8 @@ using MBDChat.com.unice.mbds.mbdchat.model;
 using MBDChat.com.unice.mbds.mbdchat.model.clientServer;
 using MBDChat.com.unice.mbds.mbdchat.model.message;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace MBDChat
 {
@@ -32,7 +20,6 @@ namespace MBDChat
 
             //controller.addPair(new Pair("192.168.0.145", 2323));
             controller.addPair(new Pair("127.0.0.1", 2323));
-            controller.startUp();
 
             /*List<Pair> pairs = new List<Pair>();
             pairs.Add(new Pair("192.168.0.5", "2323"));
@@ -41,6 +28,7 @@ namespace MBDChat
 
             string json = ChatRoomController.toJson(msg);
             Console.WriteLine("json : " + json);*/
+
         }
 
         void sendMessage(object sender, RoutedEventArgs e)
@@ -68,10 +56,29 @@ namespace MBDChat
             TextToSend.Text = "";
         }
 
+        private void onReceiveMessage(string message)
+        {
+            if (!MessagesList.Dispatcher.CheckAccess())//vérifie que le thread courant est bien le thread graphique (celui qui a créé la listbox)
+            {
+                MessagesList.Dispatcher.Invoke(() => { MessagesList.Items.Add(message); });
+            }
+            else
+            {
+                MessagesList.Items.Add(message);
+            }
+                
+        }
+
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             controller.sender.sendGoodByeBroadcast();
             Console.WriteLine("GoodBye");
+        }
+
+        private void onLoaded(object sender, RoutedEventArgs e)
+        {
+           controller.startUp();
+            controller.receipter.events += onReceiveMessage;
         }
     }
 }

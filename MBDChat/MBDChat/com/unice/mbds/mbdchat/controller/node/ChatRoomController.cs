@@ -23,7 +23,7 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.clientServer
         private List<Pair> nodes = new List<Pair>();
         private List<ChatRoom> chatrooms = new List<ChatRoom>();
         public Sender sender { get; set; }
-        private Receipter receipter;
+        public Receipter receipter { get; set; }
 
         public static readonly ChatRoomController instance = new ChatRoomController();
         public static SHA256 mySHA256 = new SHA256Managed();

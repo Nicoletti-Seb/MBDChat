@@ -14,11 +14,15 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.message
         public string Addr_source { get; set; } 
 
         [DataMember]
+        public int Port { get; set; }
+
+        [DataMember]
         public string Timestamp { get; set; }
 
-        public PingPongData(string addr_source, string timestamp)
+        public PingPongData(string addr_source, int port, string timestamp)
         {
             Addr_source = addr_source;
+            Port = port;
             Timestamp = timestamp;
         }
     }
