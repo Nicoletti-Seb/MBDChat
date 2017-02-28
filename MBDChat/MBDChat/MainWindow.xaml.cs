@@ -1,3 +1,4 @@
+using MBDChat.com.unice.mbds.mbdchat.controller.utils;
 using MBDChat.com.unice.mbds.mbdchat.model;
 using MBDChat.com.unice.mbds.mbdchat.model.clientServer;
 using MBDChat.com.unice.mbds.mbdchat.model.message;
@@ -39,9 +40,9 @@ namespace MBDChat
             string type = "MESSAGE";
             string nickname = controller.nickname;
             string message = TextToSend.Text;
-            string timestamp = ChatRoomController.UnixTimestampFromDateTime(DateTime.Now).ToString();
+            string timestamp = Parser.TimestampNow().ToString();
             string dest = "";
-            string hash = ChatRoomController.toHash(type, nickname, message, timestamp, dest);
+            string hash = Parser.toHash(type, nickname, message, timestamp, dest);
             string rootedby = controller.nickname;
 
             MessageData msgData = new MessageData(nickname, message, timestamp, dest, hash, rootedby);
@@ -71,7 +72,8 @@ namespace MBDChat
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            controller.sender.sendGoodByeBroadcast();
+            // error
+            //controller.sender.sendGoodByeBroadcast();
             Console.WriteLine("GoodBye");
         }
 

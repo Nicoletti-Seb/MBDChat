@@ -91,6 +91,7 @@
     <Compile Include="com\unice\mbds\mbdchat\controller\receipter\ReceipterImp.cs" />
     <Compile Include="com\unice\mbds\mbdchat\controller\sender\Sender.cs" />
     <Compile Include="com\unice\mbds\mbdchat\controller\sender\SenderImpl.cs" />
+    <Compile Include="com\unice\mbds\mbdchat\controller\utils\Parser.cs" />
     <Compile Include="com\unice\mbds\mbdchat\model\message\GoodByeData.cs" />
     <Compile Include="com\unice\mbds\mbdchat\model\message\HelloData.cs" />
     <Compile Include="com\unice\mbds\mbdchat\model\message\Message.cs" />

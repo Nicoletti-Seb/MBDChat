@@ -10,6 +10,7 @@ using System.Net.Sockets;
 using MBDChat.com.unice.mbds.mbdchat.model.message;
 using System.Runtime.Serialization.Json;
 using System.IO;
+using MBDChat.com.unice.mbds.mbdchat.controller.utils;
 
 namespace MBDChat.com.unice.mbds.mbdchat.controller.sender
 {
@@ -17,18 +18,13 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.sender
     {
         private List<Pair> nodes;
         private Socket socket;
+        private int port;
 
-        private DataContractJsonSerializer jsonParser;
-        private MemoryStream stream;
-        private StreamReader streamReader;
-
-        public SenderImpl(Socket socket, List<Pair> nodes)
+        public SenderImpl(Socket socket, List<Pair> nodes, int port)
         {
             this.socket = socket;
             this.nodes = nodes;
-            this.jsonParser = new DataContractJsonSerializer(typeof(Message));
-            stream = new MemoryStream();
-            streamReader = new StreamReader(stream);
+            this.port = port;
         }
 
         public void sendHelloBroadcast()
@@ -37,7 +33,7 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.sender
             {
                 Message message = new Message("HELLO", new HelloData(pair.Addr, pair.Port, nodes));
 
-                byte[] msg = Encoding.ASCII.GetBytes(parseToJson(message));
+                byte[] msg = Encoding.ASCII.GetBytes(Parser.parseToJson(message));
                 socket.SendTo(msg, pair.ep);
             }
             
@@ -58,9 +54,9 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.sender
         {
             foreach (Pair pair in nodes)
             {
-                Message message = new Message("PING/PONG", new PingPongData(pair.Addr, ChatRoomController.UnixTimestampFromDateTimeNow().ToString()));
+                Message message = new Message("PING/PONG", new PingPongData(pair.Addr, this.port, Parser.TimestampNow().ToString()));
 
-                byte[] msg = Encoding.ASCII.GetBytes(parseToJson(message));
+                byte[] msg = Encoding.ASCII.GetBytes(Parser.parseToJson(message));
                 socket.SendTo(msg, pair.ep);
             }
         }
@@ -75,20 +71,8 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.sender
 
         public void sendMessage(Message message, Pair pair)
         {
-            byte[] msg = Encoding.ASCII.GetBytes(parseToJson(message));
+            byte[] msg = Encoding.ASCII.GetBytes(Parser.parseToJson(message));
             socket.SendTo(msg, pair.ep);
-        }
-
-        private string parseToJson(Message message)
-        {
-            jsonParser.WriteObject(stream, message);
-            stream.Position = 0;
-           
-            string result = streamReader.ReadToEnd();
-            Console.WriteLine(result);
-
-            stream.Flush();
-            return result;
         }
     }
 }

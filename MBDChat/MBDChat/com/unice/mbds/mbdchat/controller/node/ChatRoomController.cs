@@ -17,19 +17,18 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.clientServer
 {
     public class ChatRoomController
     {
-        public string nickname { get { return "Seb&Leo"; } }
-        public int port { get; set; }
         private Socket socket;
         private List<Pair> nodes = new List<Pair>();
         private List<ChatRoom> chatrooms = new List<ChatRoom>();
+
+        public string nickname { get { return "Seb&Leo"; } }
+        public int port { get; set; }
         public Sender sender { get; set; }
         public Receipter receipter { get; set; }
 
         public static readonly ChatRoomController instance = new ChatRoomController();
-        public static SHA256 mySHA256 = new SHA256Managed();
-
-        private ChatRoomController() { this.port = 2323; }
         public static ChatRoomController Instance { get { return instance; } }
+        private ChatRoomController() { port = 2323; }
 
         public void startUp()
         {
@@ -41,7 +40,7 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.clientServer
             receipter.startListen(port);
 
             //Sender
-            sender = new SenderImpl(socket, nodes);
+            sender = new SenderImpl(socket, nodes, port);
             sender.sendHelloBroadcast();
         }
 
@@ -65,34 +64,6 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.clientServer
                     return;
                 }
             }
-        }
-
-        public static long UnixTimestampFromDateTimeNow()
-        {
-            long unixTimestamp = DateTime.Now.Ticks - new DateTime(1970, 1, 1).Ticks;
-            unixTimestamp /= TimeSpan.TicksPerSecond;
-            return unixTimestamp;
-        }
-
-        public static long UnixTimestampFromDateTime(DateTime date)
-        {
-            long unixTimestamp = date.Ticks - new DateTime(1970, 1, 1).Ticks;
-            unixTimestamp /= TimeSpan.TicksPerSecond;
-            return unixTimestamp;
-        }
-
-        public static string toHash(string type, string nickname, string message, string timestamp, string dest)
-        {
-            byte[] hash = mySHA256.ComputeHash(Encoding.UTF8.GetBytes(type + nickname + message + timestamp + dest));
-
-            StringBuilder res = new StringBuilder();
-
-            for (int i = 0; i < hash.Length; i++)
-            {
-                res.Append(String.Format("{0:X2}", hash[i]));
-            }
-            Console.WriteLine("hash:" + res.ToString());
-            return res.ToString();
         }
     }
 }

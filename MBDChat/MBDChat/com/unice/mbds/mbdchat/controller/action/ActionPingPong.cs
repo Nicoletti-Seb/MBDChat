@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using MBDChat.com.unice.mbds.mbdchat.model;
 using MBDChat.com.unice.mbds.mbdchat.model.message;
 using MBDChat.com.unice.mbds.mbdchat.model.clientServer;
+using MBDChat.com.unice.mbds.mbdchat.controller.utils;
 
 namespace MBDChat.com.unice.mbds.mbdchat.controller.action
 {
@@ -27,7 +28,8 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.action
             string addr = ((PingPongData)message.Data).Addr_source;
             // timestamp pour mesure la latence
 
-            Message msgToSend = new Message("PING/PONG", new PingPongData(controller.getIpLocal(), ChatRoomController.UnixTimestampFromDateTimeNow().ToString()));
+            // check le port
+            Message msgToSend = new Message("PING/PONG", new PingPongData(controller.getIpLocal(), 2323, Parser.TimestampNow().ToString()));
             controller.sender.sendMessage(msgToSend);
         }
     }
