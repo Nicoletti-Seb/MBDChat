@@ -1,4 +1,5 @@
 ﻿using MBDChat.com.unice.mbds.mbdchat.model;
+using MBDChat.com.unice.mbds.mbdchat.model.clientServer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,19 +10,28 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.action
 {
     public abstract class Action
     {
-        public string Type { get; }
+        protected ChatRoomController controller = ChatRoomController.Instance;
 
-        public List<Message> History;
+        public string Type { get; set; }
+
+        public List<Message> HistorySender;
+        public List<Message> HistoryReceiver;
 
         public Action(string type)
         {
             this.Type = type;
-            this.History = new List<Message>();
+            this.HistorySender = new List<Message>();
+            this.HistoryReceiver = new List<Message>();
         }
 
-        public virtual void update(Message message)
+        public virtual void onSender(Message message)
         {
-            History.Add(message);
+            HistorySender.Add(message);
+        }
+
+        public virtual void onReceiver(Message message)
+        {
+            HistoryReceiver.Add(message);
         }
     }
 }

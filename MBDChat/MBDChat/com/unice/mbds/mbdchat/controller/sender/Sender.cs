@@ -12,6 +12,7 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.clientServer
     {
         void sendHelloBroadcast();
         void sendGoodByeBroadcast();
+        void sendPingBroadcast();
         void sendMessage(Message message);
         void sendMessage(Message message, Pair remoteEP);
     }

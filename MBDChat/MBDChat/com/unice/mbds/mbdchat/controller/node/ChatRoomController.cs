@@ -33,11 +33,6 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.clientServer
 
         public void startUp()
         {
-            /*
-            Thread thread = new Thread(listner());
-            thread.start();
-            */
-
             //Init connexion
             socket = new Socket(AddressFamily.InterNetwork,SocketType.Dgram,ProtocolType.Udp);
 
@@ -50,7 +45,7 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.clientServer
             sender.sendHelloBroadcast();
         }
 
-        private string getIpLocal()
+        public string getIpLocal()
         {
             return (socket.LocalEndPoint as IPEndPoint).ToString();
         }
@@ -58,6 +53,25 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.clientServer
         public void addPair(Pair pair)
         {
             nodes.Add(pair);
+        }
+
+        public void removePair(string addr)
+        {
+            foreach (Pair p in nodes)
+            {
+                if (p.Addr == addr)
+                {
+                    nodes.Remove(p);
+                    return;
+                }
+            }
+        }
+
+        public static long UnixTimestampFromDateTimeNow()
+        {
+            long unixTimestamp = DateTime.Now.Ticks - new DateTime(1970, 1, 1).Ticks;
+            unixTimestamp /= TimeSpan.TicksPerSecond;
+            return unixTimestamp;
         }
 
         public static long UnixTimestampFromDateTime(DateTime date)

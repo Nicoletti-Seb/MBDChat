@@ -15,7 +15,6 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.sender
 {
     public class SenderImpl : Sender
     {
-        
         private List<Pair> nodes;
         private Socket socket;
 
@@ -49,7 +48,19 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.sender
             foreach (Pair pair in nodes)
             {
                 Message message = new Message("GOODBYE", new GoodByeData(pair.Addr));
+
                 byte[] msg = Encoding.ASCII.GetBytes(message.ToString());
+                socket.SendTo(msg, pair.ep);
+            }
+        }
+
+        public void sendPingBroadcast()
+        {
+            foreach (Pair pair in nodes)
+            {
+                Message message = new Message("PING/PONG", new PingPongData(pair.Addr, ChatRoomController.UnixTimestampFromDateTimeNow().ToString()));
+
+                byte[] msg = Encoding.ASCII.GetBytes(parseToJson(message));
                 socket.SendTo(msg, pair.ep);
             }
         }

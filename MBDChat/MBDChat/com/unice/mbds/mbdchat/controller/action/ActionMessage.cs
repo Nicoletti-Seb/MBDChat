@@ -11,9 +11,14 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.action
     {
         public ActionMessage(string type) : base(type){}
 
-        public override void update(Message message)
+        public override void onSender(Message message)
         {
-            base.update(message);
+            base.onSender(message);
+        }
+
+        public override void onReceiver(Message message)
+        {
+            base.onReceiver(message);
         }
     }
 }

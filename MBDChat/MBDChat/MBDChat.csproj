@@ -80,6 +80,11 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="com\unice\mbds\mbdchat\controller\action\Action.cs" />
+    <Compile Include="com\unice\mbds\mbdchat\controller\action\ActionGoodbye.cs" />
+    <Compile Include="com\unice\mbds\mbdchat\controller\action\ActionHello.cs" />
+    <Compile Include="com\unice\mbds\mbdchat\controller\action\ActionMessage.cs" />
+    <Compile Include="com\unice\mbds\mbdchat\controller\action\ActionPingPong.cs" />
     <Compile Include="com\unice\mbds\mbdchat\controller\node\ChatRoom.cs" />
     <Compile Include="com\unice\mbds\mbdchat\controller\node\ChatRoomController.cs" />
     <Compile Include="com\unice\mbds\mbdchat\controller\receipter\Receipter.cs" />
