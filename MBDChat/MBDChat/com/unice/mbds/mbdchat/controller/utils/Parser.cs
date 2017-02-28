@@ -1,4 +1,5 @@
 ﻿using MBDChat.com.unice.mbds.mbdchat.model;
+using Newtonsoft.Json.Linq;
 using System;
 using System.IO;
 using System.Runtime.Serialization.Json;
@@ -26,11 +27,14 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.utils
             stream.Flush();
             return result;
         }
-        
+
         public static Message parseToMessage(string json)
         {
             Message deserializedMessage = new Message();
 
+            //TODO
+            dynamic obj = JObject.Parse(json);
+            Console.WriteLine(obj.Type);
             try
             {
                 stream.Position = 0;
@@ -39,7 +43,7 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.utils
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error parse message : "+ json+"\nException : " +e.ToString());
+                Console.WriteLine("Error parse message : " + json + "\nException : " + e.ToString());
             }
 
 
