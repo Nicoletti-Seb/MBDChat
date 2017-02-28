@@ -1,15 +1,12 @@
 ﻿using MBDChat.com.unice.mbds.mbdchat.model;
 using MBDChat.com.unice.mbds.mbdchat.model.clientServer;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace MBDChat.com.unice.mbds.mbdchat.controller.receipter
 {
@@ -19,9 +16,14 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.receipter
         private IPEndPoint ip;
         private Thread thread;
         private bool continued = false;
+        public event EventMessage events;
 
+
+        //Parser json
+        //TODO Create another class to Parse JSON
         private DataContractJsonSerializer jsonParser;
         private MemoryStream stream;
+
 
         public ReceipterImp()
         {
@@ -34,10 +36,14 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.receipter
             while (continued)
             {
                 byte[] bytes = listener.Receive(ref ip);
-                String msg = Encoding.ASCII.GetString(bytes, 0, bytes.Length);
-                Console.WriteLine("Message json receive " + msg);
-                Message message = parseToMessage(msg);
-                Console.WriteLine("Message receive " + message);
+                String json = Encoding.ASCII.GetString(bytes, 0, bytes.Length);
+                Message message = parseToMessage(json);
+
+                //notify
+                if(events != null)
+                {
+                    events.Invoke(json);
+                }
             }
         }
 
@@ -68,10 +74,18 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.receipter
 
         private Message parseToMessage(string json)
         {
-            stream.Position = 0;
-            stream = new MemoryStream(Encoding.UTF8.GetBytes(json));
             Message deserializedMessage = new Message();
-            deserializedMessage = jsonParser.ReadObject(stream) as Message;
+
+            try
+            {
+                stream.Position = 0;
+                stream = new MemoryStream(Encoding.UTF8.GetBytes(json));
+                deserializedMessage = jsonParser.ReadObject(stream) as Message;
+            }catch(Exception e)
+            {
+                Console.WriteLine("Error parse message :", json);
+            }
+            
             
             return deserializedMessage;
         }

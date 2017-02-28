@@ -54,6 +54,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -80,6 +81,11 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="com\unice\mbds\mbdchat\controller\action\Action.cs" />
+    <Compile Include="com\unice\mbds\mbdchat\controller\action\ActionPingPong.cs" />
+    <Compile Include="com\unice\mbds\mbdchat\controller\action\ActionGoodBye.cs" />
+    <Compile Include="com\unice\mbds\mbdchat\controller\action\ActionMessage.cs" />
+    <Compile Include="com\unice\mbds\mbdchat\controller\action\ActionHello.cs" />
     <Compile Include="com\unice\mbds\mbdchat\controller\node\ChatRoom.cs" />
     <Compile Include="com\unice\mbds\mbdchat\controller\node\ChatRoomController.cs" />
     <Compile Include="com\unice\mbds\mbdchat\controller\receipter\Receipter.cs" />
