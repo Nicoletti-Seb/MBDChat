@@ -11,10 +11,7 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.action
 {
     public class ActionHelloR : Action
     {
-        private ChatRoomController controller = ChatRoomController.Instance;
-
         public ActionHelloR() : base("HELLO_R"){}
-
 
         public override void onReceiver(Message message)
         {

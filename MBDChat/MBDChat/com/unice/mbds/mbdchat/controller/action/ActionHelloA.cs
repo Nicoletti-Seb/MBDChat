@@ -11,8 +11,6 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.action
 {
     public class ActionHelloA : Action
     {
-        private ChatRoomController controller = ChatRoomController.Instance;
-
         public ActionHelloA() : base("HELLO_A"){}
 
 

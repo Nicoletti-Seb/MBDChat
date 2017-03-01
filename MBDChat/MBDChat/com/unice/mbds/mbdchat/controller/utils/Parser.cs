@@ -12,20 +12,17 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.utils
 {
     class Parser
     {
-        private static MemoryStream stream;
-        private static StreamReader streamReader;
-
         public static string parseToJson(Message message)
         {
             DataContractJsonSerializer jsonParser = new DataContractJsonSerializer(message.GetType());
             Console.WriteLine(typeof(Message));
-            stream = new MemoryStream();
-            streamReader = new StreamReader(stream);
+            MemoryStream stream = new MemoryStream();
+            StreamReader streamReader = new StreamReader(stream);
             jsonParser.WriteObject(stream, message);
             stream.Position = 0;
 
             string result = streamReader.ReadToEnd();
-            Console.WriteLine("PARSETOJSON : ", result);
+            Console.WriteLine("PARSETOJSON : " + result);
 
             stream.Flush();
             return result;
@@ -33,7 +30,7 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.utils
 
         public static Message parseToMessage(string json)
         {
-            Console.WriteLine("PARSETOMESSAGE : ", json);
+            Console.WriteLine("PARSETOMESSAGE : " + json);
             Message deserializedMessage = new Message();
 
             dynamic obj = JObject.Parse(json);
@@ -48,6 +45,7 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.utils
             }
 
             DataContractJsonSerializer jsonParser = new DataContractJsonSerializer(type);
+            MemoryStream stream = new MemoryStream();
             try
             {
                 stream.Position = 0;
@@ -59,7 +57,7 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.utils
                 Console.WriteLine("Error parse message : " + json + "\nException : " + e.ToString());
             }
 
-
+            stream.Flush();
             return deserializedMessage;
         }
 

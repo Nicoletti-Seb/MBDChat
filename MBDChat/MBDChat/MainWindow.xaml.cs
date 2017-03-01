@@ -23,8 +23,9 @@ namespace MBDChat
             // add event pour mettre a jour la liste des pairs
             controller.eventUpdatePairs += updateListPair;
             //controller.addPair(new Pair("10.154.106.235", 2323, ));
-            controller.addPair(new Pair("10.154.127.247", 2323, "David"));
-            controller.addPair(new Pair("10.154.127.245", 2323));
+            //controller.addPair(new Pair("10.154.127.247", 2323, "David"));
+            //controller.addPair(new Pair("10.154.106.235", 2323, "Seb"));
+            //controller.addPair(new Pair("10.154.124.248", 2323, "Leo"));
         }
 
         void sendMessage(object sender, RoutedEventArgs e)
@@ -65,14 +66,32 @@ namespace MBDChat
 
         public void updateListPair()
         {
-            System.Console.WriteLine("UPDATE NODES");
-
-            // update list user
-            usersList.Items.Clear();
-            foreach (Pair p in controller.nodes)
+            if (!usersList.Dispatcher.CheckAccess())
             {
-                usersList.Items.Add(p.Nickname);
+                usersList.Dispatcher.Invoke(() =>
+                { 
+                    System.Console.WriteLine("UPDATE NODES");
+
+                    // update list user
+                    usersList.Items.Clear();
+                    foreach (Pair p in controller.nodes)
+                    {
+                        usersList.Items.Add(p.Nickname);
+                    }
+                });
             }
+            else
+            {
+                System.Console.WriteLine("UPDATE NODES");
+
+                // update list user
+                usersList.Items.Clear();
+                foreach (Pair p in controller.nodes)
+                {
+                    usersList.Items.Add(p.Nickname);
+                }
+            }
+            
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
