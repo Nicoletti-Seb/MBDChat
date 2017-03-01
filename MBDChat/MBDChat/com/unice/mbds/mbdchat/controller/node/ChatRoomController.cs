@@ -42,7 +42,16 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.clientServer
 
         public string getIpLocal()
         {
-            return (socket.LocalEndPoint as IPEndPoint).ToString();
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (var ip in host.AddressList)
+            {
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    System.Console.WriteLine(ip.ToString());
+                    return ip.ToString();
+                }
+            }
+            throw new System.Exception("Local IP Address Not Found!");
         }
 
         public void addPair(Pair pair)

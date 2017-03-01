@@ -14,6 +14,8 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.sender
 {
     public class SenderImpl : Sender
     {
+        public ChatRoomController controller = ChatRoomController.Instance;
+
         private List<Pair> nodes;
         private Socket socket;
         private int port;
@@ -29,21 +31,15 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.sender
 
         public void sendHelloBroadcast()
         {
-            foreach(Pair pair in nodes)
-            {
-                Message message = new HelloMessage(pair.Addr, pair.Port, nodes);
-                sendMessage(message, pair);
-            }
-            
+            HelloMessage hm = new HelloMessage(controller.getIpLocal(), this.port, this.nodes);
+            sendMessage(hm);            
         }
 
         public void sendGoodByeBroadcast()
         {
-            foreach (Pair pair in nodes)
-            {
-                Message message =  new GoodByeMessage(pair.Addr);
-                sendMessage(message, pair);
-            }
+            GoodByeMessage gbm =  new GoodByeMessage(controller.getIpLocal());
+            System.Console.WriteLine(gbm);
+            sendMessage(gbm);
         }
 
         public void sendPingBroadcast()
