@@ -17,10 +17,10 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.message
         [DataMember] 
         public List<Pair> Pairs { get; set; }
 
-        public HelloMessage(string addr_source, int port_source, List<Pair> pairs) : base("HELLO")
+        public HelloMessage(string addr_source, int port_source, List<Pair> pairs) : base("HELLO_A")
         {
-            Addr_source = Addr_source;
-            Port_source = Port_source;
+            Addr_source = addr_source;
+            Port_source = port_source;
             Pairs = pairs;
         }
     }

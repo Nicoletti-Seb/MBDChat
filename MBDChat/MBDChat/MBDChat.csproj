@@ -102,7 +102,6 @@
     <Compile Include="com\unice\mbds\mbdchat\model\message\Message.cs" />
     <Compile Include="com\unice\mbds\mbdchat\model\message\MessageMess.cs" />
     <Compile Include="com\unice\mbds\mbdchat\model\message\Pair.cs" />
-    <Compile Include="com\unice\mbds\mbdchat\model\message\PayLoad.cs" />
     <Compile Include="com\unice\mbds\mbdchat\model\message\PingPongMessage.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
