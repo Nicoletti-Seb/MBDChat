@@ -22,6 +22,9 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.action
             HelloMessage msgReceived = (HelloMessage)message;
             Pair senderAddr = new Pair(msgReceived.Addr_source, msgReceived.Port_source);
 
+
+            controller.addPair(senderAddr);
+
             //Create HELLO_R
             HelloMessage helloMsg = new HelloMessage(controller.getIpLocal(), controller.port, controller.nodes);
             helloMsg.Type = "HELLO_R";
