@@ -32,5 +32,14 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.message
                 return ep;
             }
         }
+
+        public override bool Equals(object obj)
+        {
+            if(this == obj){ return true; }
+            if(obj.GetType() != typeof(Pair)) { return false; }
+
+            Pair pair = (Pair)obj;
+            return pair.Port == Port && pair.Addr == Addr;
+        }
     }
 }
