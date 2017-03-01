@@ -45,7 +45,7 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.action
 
         private bool isPrivateMessage(string destinataire)
         {
-            if(destinataire.Length < 0) { return false; }
+            if(destinataire.Length <= 0) { return false; }
 
             return destinataire[0] == '@';
         }
