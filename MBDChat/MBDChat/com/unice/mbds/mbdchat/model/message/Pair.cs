@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace MBDChat.com.unice.mbds.mbdchat.model.message
 {
-    [DataContract]
+    [DataContract(Name = "pair")]
     public class Pair
     {
-        [DataMember]
+        [DataMember(Name = "addr")]
         public string Addr { get; set; } 
 
-        [DataMember]
+        [DataMember(Name = "port")]
         public int Port { get; set; } 
 
         public Pair(string addr, int port)

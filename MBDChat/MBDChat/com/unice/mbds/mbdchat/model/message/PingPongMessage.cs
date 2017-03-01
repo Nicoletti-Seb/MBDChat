@@ -11,19 +11,19 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.message
     [DataContract]
     public class PingPongMessage : Message
     {
-        [DataMember]
-        public string Addr_source { get; set; } 
+        [DataMember(Name = "addr_source")]
+        public string AddrSrc { get; set; } 
 
-        [DataMember]
-        public int Port { get; set; }
+        [DataMember(Name = "port_source")]
+        public int PortSrc { get; set; }
 
-        [DataMember]
+        [DataMember(Name = "timestamp")]
         public string Timestamp { get; set; }
 
         public PingPongMessage(string addr_source, int port, string timestamp): base("PING/PONG")
         {
-            Addr_source = addr_source;
-            Port = port;
+            AddrSrc = addr_source;
+            PortSrc = port;
             Timestamp = timestamp;
         }
     }

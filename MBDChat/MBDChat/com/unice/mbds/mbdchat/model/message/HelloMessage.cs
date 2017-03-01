@@ -8,19 +8,19 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.message
     [DataContract]
     public class HelloMessage : Message
     {
-        [DataMember]
+        [DataMember(Name = "addr_source")]
         public string Addr_source { get; set; } 
 
-        [DataMember]
+        [DataMember(Name = "port_source")]
         public int Port_source { get; set; } 
 
-        [DataMember] 
+        [DataMember(Name = "pairs")] 
         public List<Pair> Pairs { get; set; }
 
         public HelloMessage(string addr_source, int port_source, List<Pair> pairs) : base("HELLO")
         {
-            Addr_source = Addr_source;
-            Port_source = Port_source;
+            Addr_source = addr_source;
+            Port_source = port_source;
             Pairs = pairs;
         }
     }

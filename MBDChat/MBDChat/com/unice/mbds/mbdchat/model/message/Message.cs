@@ -13,7 +13,7 @@ namespace MBDChat.com.unice.mbds.mbdchat.model
     [DataContract]
     public class Message
     {
-        [DataMember]
+        [DataMember(Name = "type")]
         public string Type { get; set; }
 
         public Message() { }

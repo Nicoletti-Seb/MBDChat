@@ -25,7 +25,7 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.action
         {
             base.onReceiver(message);
 
-            string addr = ((PingPongMessage)message).Addr_source;
+            string addr = ((PingPongMessage)message).AddrSrc;
             // timestamp pour mesure la latence
 
             // check le port
