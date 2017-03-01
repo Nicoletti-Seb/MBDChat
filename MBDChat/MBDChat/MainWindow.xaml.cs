@@ -1,3 +1,4 @@
+using MBDChat.com.unice.mbds.mbdchat.controller.node;
 using MBDChat.com.unice.mbds.mbdchat.controller.utils;
 using MBDChat.com.unice.mbds.mbdchat.model;
 using MBDChat.com.unice.mbds.mbdchat.model.clientServer;
@@ -6,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace MBDChat
 {
@@ -134,6 +136,11 @@ namespace MBDChat
         {
             PingPongMessage ppm = new PingPongMessage(controller.getIpLocal(), controller.port, Parser.TimestampNow().ToString());
             //controller.sender.sendMessage(ppm);
+        }
+
+        private void onDblClickUser(object sender, MouseButtonEventArgs e)
+        {
+            new ChatRoomView(new ChatRoom()).Show();
         }
     }
 }

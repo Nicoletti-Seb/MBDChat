@@ -16,7 +16,8 @@
         </Grid.ColumnDefinitions>
 
         <ListView Grid.Column="0" Name="chatList" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-        <ListView Grid.Column="2" Name="usersList" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0.2,0,0.4,123.4"/>
+
+        <ListView Grid.Column="2" Name="usersList" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" MouseDoubleClick="onDblClickUser"/>
 
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>

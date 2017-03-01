@@ -33,6 +33,9 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.action
                 Console.WriteLine("Update room " + newMess.Msg);
             }
 
+            if(newMess.Rootedby.Length  <= 0) { newMess.Rootedby += controller.nickname; }
+            else { newMess.Rootedby += "," + controller.nickname; }
+
             controller.sender.sendMessage(newMess);
         }
 
