@@ -11,24 +11,29 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.clientServer
 {
     public class ChatRoomController
     {
-        private Socket socket;
-        private List<Pair> nodes = new List<Pair>();
+       
         private List<ChatRoom> chatrooms = new List<ChatRoom>();
 
         public string nickname { get { return "Seb&Leo"; } }
         public int port { get; set; }
         public Sender sender { get; set; }
         public Receipter receipter { get; set; }
+        public List<Pair> nodes { get; }
 
         public static readonly ChatRoomController instance = new ChatRoomController();
         public static ChatRoomController Instance { get { return instance; } }
-        private ChatRoomController() { port = 2323; }
+        
         private List<Action> actions;
+
+        private ChatRoomController() {
+            port = 2323;
+            nodes = new List<Pair>();
+        }
 
         public void startUp()
         {
             //Init connexion
-            socket = new Socket(AddressFamily.InterNetwork,SocketType.Dgram,ProtocolType.Udp);
+            Socket socket = new Socket(AddressFamily.InterNetwork,SocketType.Dgram,ProtocolType.Udp);
             initListAction();
 
             //Receipter
@@ -36,7 +41,7 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.clientServer
             receipter.startListen(port);
 
             //Sender
-            sender = new SenderImpl(socket, nodes, port, actions);
+            sender = new SenderImpl(socket, port, actions);
             sender.sendHelloBroadcast();
         }
 

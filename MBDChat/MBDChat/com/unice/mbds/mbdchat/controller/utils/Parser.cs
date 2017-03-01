@@ -37,7 +37,7 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.utils
 
             dynamic obj = JObject.Parse(json);
             Assembly ass = typeof(Message).Assembly;
-            string typeObj = obj.Type;
+            string typeObj = obj.type;
             Type type = searchTypeMessageLoad(ass , typeObj);
 
             if(type == null)
