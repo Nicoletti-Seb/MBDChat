@@ -3,6 +3,7 @@ using MBDChat.com.unice.mbds.mbdchat.model;
 using MBDChat.com.unice.mbds.mbdchat.model.clientServer;
 using MBDChat.com.unice.mbds.mbdchat.model.message;
 using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -19,6 +20,8 @@ namespace MBDChat
         {
             InitializeComponent();
 
+            // add event pour mettre a jour la liste des pairs
+            controller.eventUpdatePairs += updateListPair;
             controller.addPair(new Pair("10.154.106.235", 2323));
             controller.addPair(new Pair("10.154.127.247", 2323));
             controller.addPair(new Pair("10.154.127.245", 2323));
@@ -61,6 +64,16 @@ namespace MBDChat
                 
         }
 
+        public void updateListPair()
+        {
+            System.Console.WriteLine(controller.nickname + " TO ADD IN LIST");
+
+            // update list user
+            usersList.Items.Clear();
+
+            usersList.Items.Add(controller.nickname);
+        }
+
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             // error
@@ -70,6 +83,7 @@ namespace MBDChat
 
         private void onLoaded(object sender, RoutedEventArgs e)
         {
+            System.Console.WriteLine("ON LOAD");
            controller.startUp();
            controller.receipter.events += onReceiveMessage;
         }

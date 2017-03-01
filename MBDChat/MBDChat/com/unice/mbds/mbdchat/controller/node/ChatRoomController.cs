@@ -25,6 +25,9 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.clientServer
         private ChatRoomController() { port = 2323; }
         private List<Action> actions;
 
+        public delegate void EventUpdatePairs();
+        public event EventUpdatePairs eventUpdatePairs;
+
         public void startUp()
         {
             //Init connexion
@@ -47,7 +50,6 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.clientServer
             {
                 if (ip.AddressFamily == AddressFamily.InterNetwork)
                 {
-                    System.Console.WriteLine(ip.ToString());
                     return ip.ToString();
                 }
             }
@@ -56,7 +58,14 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.clientServer
 
         public void addPair(Pair pair)
         {
+            System.Console.WriteLine("ADD PAIR");
             nodes.Add(pair);
+
+            //notify
+            if (eventUpdatePairs != null)
+            {
+                eventUpdatePairs.Invoke();
+            }
         }
 
         public void removePair(string addr)
@@ -68,6 +77,12 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.clientServer
                     nodes.Remove(p);
                     return;
                 }
+            }
+
+            //notify
+            if (eventUpdatePairs != null)
+            {
+                eventUpdatePairs.Invoke();
             }
         }
 
