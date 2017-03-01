@@ -66,45 +66,36 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.clientServer
 
         public void addPair(Pair pair)
         {
-            // si pair deja connu ou maximum de pairs atteint
-            if (nodes.Contains(pair))
+            if (pair.Addr != getIpLocal() && !nodes.Contains(pair) && nodes.Count <= MAX_PAIR)
             {
-                System.Console.WriteLine("PAIR ALREADY KNOWN");
-                return;
-            }
+                System.Console.WriteLine("ADD PAIR " + pair.Addr);
+                nodes.Add(pair);
 
-            if (nodes.Count >= MAX_PAIR)
-            {
-                System.Console.WriteLine("NODE FULL");
-                return;
-            }
-
-            System.Console.WriteLine("ADD PAIR");
-            nodes.Add(pair);
-
-            //notify
-            if (eventUpdatePairs != null)
-            {
-                eventUpdatePairs.Invoke();
+                //notify
+                if (eventUpdatePairs != null)
+                {
+                    eventUpdatePairs.Invoke();
+                }
             }
         }
 
         public void removePair(string addr)
         {
-            System.Console.WriteLine("REMOVE PAIR");
+            System.Console.WriteLine("REMOVE PAIR " + addr);
             foreach (Pair p in nodes)
             {
-                if (p.Addr == addr)
+                if (p.Addr.Equals(addr))
                 {
                     nodes.Remove(p);
+
+                    //notify
+                    if (eventUpdatePairs != null)
+                    {
+                        eventUpdatePairs.Invoke();
+                    }
+
                     return;
                 }
-            }
-
-            //notify
-            if (eventUpdatePairs != null)
-            {
-                eventUpdatePairs.Invoke();
             }
         }
 

@@ -24,7 +24,7 @@ namespace MBDChat
             controller.eventUpdatePairs += updateListPair;
             //controller.addPair(new Pair("10.154.106.235", 2323, ));
             controller.addPair(new Pair("10.154.127.247", 2323, "David"));
-            //controller.addPair(new Pair("10.154.106.235", 2323, "Seb"));
+            controller.addPair(new Pair("10.154.106.235", 2323, "Seb"));
             //controller.addPair(new Pair("10.154.124.248", 2323, "Leo"));
         }
 
@@ -66,6 +66,7 @@ namespace MBDChat
 
         public void updateListPair()
         {
+            // CHANGER PAR LIST USER ET DISPLAY NICKNAME
             if (!usersList.Dispatcher.CheckAccess())
             {
                 usersList.Dispatcher.Invoke(() =>
@@ -73,9 +74,10 @@ namespace MBDChat
                     System.Console.WriteLine("UPDATE NODES");
 
                     // update list user
+                    usersList.Items.Clear();
                     foreach (Pair p in controller.nodes)
                     {
-                        usersList.Items.Add(p.Nickname);
+                        usersList.Items.Add(p.Addr);
                     }
                     usersList.Items.Refresh();
                 });
@@ -85,9 +87,10 @@ namespace MBDChat
                 System.Console.WriteLine("UPDATE NODES");
 
                 // update list user
+                usersList.Items.Clear();
                 foreach (Pair p in controller.nodes)
                 {
-                    usersList.Items.Add(p.Nickname);
+                    usersList.Items.Add(p.Addr);
                 }
                 usersList.Items.Refresh();
             }
@@ -106,6 +109,29 @@ namespace MBDChat
            System.Console.WriteLine("ONLOAD");
            controller.startUp();
            controller.receipter.events += onReceiveMessage;
+        }
+
+        private void HelloClick(object sender, RoutedEventArgs e)
+        {
+            controller.sender.sendHelloBroadcast();
+        }
+
+        private void GoodByeClick(object sender, RoutedEventArgs e)
+        {
+            controller.sender.sendGoodByeBroadcast();
+        }
+
+        private void ClearClick(object sender, RoutedEventArgs e)
+        {
+            controller.nodes = new List<Pair>();
+            System.Console.WriteLine("CLEAR : " + controller.nodes.Count);
+            updateListPair();
+        }
+
+        private void PingClick(object sender, RoutedEventArgs e)
+        {
+            PingPongMessage ppm = new PingPongMessage(controller.getIpLocal(), controller.port, Parser.TimestampNow().ToString());
+            //controller.sender.sendMessage(ppm);
         }
     }
 }

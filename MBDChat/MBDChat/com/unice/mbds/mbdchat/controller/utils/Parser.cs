@@ -15,7 +15,6 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.utils
         public static string parseToJson(Message message)
         {
             DataContractJsonSerializer jsonParser = new DataContractJsonSerializer(message.GetType());
-            Console.WriteLine(typeof(Message));
             MemoryStream stream = new MemoryStream();
             StreamReader streamReader = new StreamReader(stream);
             jsonParser.WriteObject(stream, message);
