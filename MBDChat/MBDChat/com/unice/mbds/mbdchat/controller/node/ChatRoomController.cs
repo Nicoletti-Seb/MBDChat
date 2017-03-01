@@ -4,7 +4,9 @@ using MBDChat.com.unice.mbds.mbdchat.controller.receipter;
 using MBDChat.com.unice.mbds.mbdchat.controller.sender;
 using MBDChat.com.unice.mbds.mbdchat.model.message;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Net.Sockets;
 
 namespace MBDChat.com.unice.mbds.mbdchat.model.clientServer
@@ -52,7 +54,7 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.clientServer
         }
 
         public string getIpLocal()
-        {
+        {   
             var host = Dns.GetHostEntry(Dns.GetHostName());
             foreach (var ip in host.AddressList)
             {

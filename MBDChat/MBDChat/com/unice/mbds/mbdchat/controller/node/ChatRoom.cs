@@ -8,5 +8,6 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.node
 {
     public class ChatRoom
     {
+        
     }
 }
