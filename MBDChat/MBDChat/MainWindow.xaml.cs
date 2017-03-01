@@ -23,7 +23,7 @@ namespace MBDChat
             // add event pour mettre a jour la liste des pairs
             controller.eventUpdatePairs += updateListPair;
             //controller.addPair(new Pair("10.154.106.235", 2323, ));
-            //controller.addPair(new Pair("10.154.127.247", 2323, "David"));
+            controller.addPair(new Pair("10.154.127.247", 2323, "David"));
             //controller.addPair(new Pair("10.154.106.235", 2323, "Seb"));
             //controller.addPair(new Pair("10.154.124.248", 2323, "Leo"));
         }
@@ -73,11 +73,11 @@ namespace MBDChat
                     System.Console.WriteLine("UPDATE NODES");
 
                     // update list user
-                    usersList.Items.Clear();
                     foreach (Pair p in controller.nodes)
                     {
                         usersList.Items.Add(p.Nickname);
                     }
+                    usersList.Items.Refresh();
                 });
             }
             else
@@ -85,20 +85,20 @@ namespace MBDChat
                 System.Console.WriteLine("UPDATE NODES");
 
                 // update list user
-                usersList.Items.Clear();
                 foreach (Pair p in controller.nodes)
                 {
                     usersList.Items.Add(p.Nickname);
                 }
+                usersList.Items.Refresh();
             }
             
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            // error
             controller.sender.sendGoodByeBroadcast();
             Console.WriteLine("WINDOW_CLOSING");
+            Environment.Exit(0);
         }
 
         private void onLoaded(object sender, RoutedEventArgs e)

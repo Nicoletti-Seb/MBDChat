@@ -67,9 +67,15 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.clientServer
         public void addPair(Pair pair)
         {
             // si pair deja connu ou maximum de pairs atteint
-            if (nodes.Contains(pair) || nodes.Count >= MAX_PAIR)
+            if (nodes.Contains(pair))
             {
                 System.Console.WriteLine("PAIR ALREADY KNOWN");
+                return;
+            }
+
+            if (nodes.Count >= MAX_PAIR)
+            {
+                System.Console.WriteLine("NODE FULL");
                 return;
             }
 
