@@ -23,9 +23,11 @@ namespace MBDChat
             // add event pour mettre a jour la liste des pairs
             controller.eventUpdatePairs += updateListPair;
             //controller.addPair(new Pair("10.154.106.235", 2323, ));
-            controller.addPair(new Pair("10.154.127.247", 2323, "David"));
-            //controller.addPair(new Pair("10.154.106.235", 2323, "Seb"));
-            //controller.addPair(new Pair("10.154.124.248", 2323, "Leo"));
+            //controller.addPair(new Pair("10.154.127.247", 2323, "David"));
+            //controller.addPair(new Pair("10.154.127.245", 2323));
+            controller.addPair(new Pair("10.154.127.244", 2323, "Aurore"));
+            controller.addPair(new Pair("10.154.124.248", 2323, "Léo"));
+            controller.addPair(new Pair("10.154.127.235", 2323, "Thais"));
         }
 
         void sendMessage(object sender, RoutedEventArgs e)
