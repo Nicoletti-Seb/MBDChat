@@ -18,9 +18,10 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.message
         public string Nickname { get; set; }
 
 
-        public GoodByeMessage(string addr) : base("GOODBYE")
+        public GoodByeMessage(string addr, string nickname) : base("GOODBYE")
         {
             AddrSrc = addr;
+            Nickname = nickname;
         }
     }
 }

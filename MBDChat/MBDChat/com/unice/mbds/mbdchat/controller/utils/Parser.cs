@@ -25,7 +25,7 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.utils
             stream.Position = 0;
 
             string result = streamReader.ReadToEnd();
-            Console.WriteLine(result);
+            Console.WriteLine("PARSETOJSON : ", result);
 
             stream.Flush();
             return result;
@@ -33,11 +33,12 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.utils
 
         public static Message parseToMessage(string json)
         {
+            Console.WriteLine("PARSETOMESSAGE : ", json);
             Message deserializedMessage = new Message();
 
             dynamic obj = JObject.Parse(json);
             Assembly ass = typeof(Message).Assembly;
-            string typeObj = obj.Type;
+            string typeObj = obj.type;
             Type type = searchTypeMessageLoad(ass , typeObj);
 
             if(type == null)

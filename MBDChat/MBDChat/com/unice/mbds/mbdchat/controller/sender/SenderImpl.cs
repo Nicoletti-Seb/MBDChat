@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Net;
 using MBDChat.com.unice.mbds.mbdchat.model;
 using System.Net.Sockets;
 using MBDChat.com.unice.mbds.mbdchat.model.message;
@@ -16,35 +14,32 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.sender
     {
         public ChatRoomController controller = ChatRoomController.Instance;
 
-        private List<Pair> nodes;
         private Socket socket;
         private int port;
         private List<Action> actions;
 
-        public SenderImpl(Socket socket, List<Pair> nodes, int port, List<Action> actions)
+        public SenderImpl(Socket socket, int port, List<Action> actions)
         {
             this.socket = socket;
-            this.nodes = nodes;
             this.port = port;
             this.actions = actions;
         }
 
         public void sendHelloBroadcast()
         {
-            HelloMessage hm = new HelloMessage(controller.getIpLocal(), this.port, this.nodes);
+            HelloMessage hm = new HelloMessage(controller.getIpLocal(), this.port, controller.nodes);
             sendMessage(hm);            
         }
 
         public void sendGoodByeBroadcast()
         {
-            GoodByeMessage gbm =  new GoodByeMessage(controller.getIpLocal());
-            System.Console.WriteLine(gbm);
+            GoodByeMessage gbm =  new GoodByeMessage(controller.getIpLocal(), controller.nickname);
             sendMessage(gbm);
         }
 
         public void sendPingBroadcast()
         {
-            foreach (Pair pair in nodes)
+            foreach (Pair pair in controller.nodes)
             {
                 Message message = new PingPongMessage(pair.Addr, this.port, Parser.TimestampNow().ToString());
                 sendMessage(message, pair);
@@ -53,7 +48,7 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.sender
 
         public void sendMessage(Message message)
         {
-            foreach(Pair pair in nodes)
+            foreach(Pair pair in controller.nodes)
             {
                 sendMessage(message, pair);
             }

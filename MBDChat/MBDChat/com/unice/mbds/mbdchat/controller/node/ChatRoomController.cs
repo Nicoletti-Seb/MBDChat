@@ -11,27 +11,35 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.clientServer
 {
     public class ChatRoomController
     {
-        private Socket socket;
-        private List<Pair> nodes = new List<Pair>();
+        // att
         private List<ChatRoom> chatrooms = new List<ChatRoom>();
+        private List<Action> actions;
+        private const int MAX_PAIR = 4;
 
-        public string nickname { get { return "Seb&Leo"; } }
+        // properties
+        public string nickname { get { return "Leo"; } }
         public int port { get; set; }
         public Sender sender { get; set; }
         public Receipter receipter { get; set; }
+        public List<Pair> nodes { get; set; }
 
-        public static readonly ChatRoomController instance = new ChatRoomController();
-        public static ChatRoomController Instance { get { return instance; } }
-        private ChatRoomController() { port = 2323; }
-        private List<Action> actions;
-
+        // events
         public delegate void EventUpdatePairs();
         public event EventUpdatePairs eventUpdatePairs;
+
+        // singleton
+        public static readonly ChatRoomController instance = new ChatRoomController();
+        public static ChatRoomController Instance { get { return instance; } }
+
+        private ChatRoomController() {
+            port = 2323;
+            nodes = new List<Pair>();
+        }
 
         public void startUp()
         {
             //Init connexion
-            socket = new Socket(AddressFamily.InterNetwork,SocketType.Dgram,ProtocolType.Udp);
+            Socket socket = new Socket(AddressFamily.InterNetwork,SocketType.Dgram,ProtocolType.Udp);
             initListAction();
 
             //Receipter
@@ -39,7 +47,7 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.clientServer
             receipter.startListen(port);
 
             //Sender
-            sender = new SenderImpl(socket, nodes, port, actions);
+            sender = new SenderImpl(socket, port, actions);
             sender.sendHelloBroadcast();
         }
 
@@ -58,6 +66,13 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.clientServer
 
         public void addPair(Pair pair)
         {
+            // si pair deja connu ou maximum de pairs atteint
+            if (nodes.Contains(pair) || nodes.Count >= MAX_PAIR)
+            {
+                System.Console.WriteLine("PAIR ALREADY KNOWN");
+                return;
+            }
+
             System.Console.WriteLine("ADD PAIR");
             nodes.Add(pair);
 
@@ -70,6 +85,7 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.clientServer
 
         public void removePair(string addr)
         {
+            System.Console.WriteLine("REMOVE PAIR");
             foreach (Pair p in nodes)
             {
                 if (p.Addr == addr)
