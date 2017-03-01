@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace MBDChat.com.unice.mbds.mbdchat.model.message
 {
+    [AttributeMessage("MESSAGE")]
     [DataContract]
     public class MessageMess : Message
     {

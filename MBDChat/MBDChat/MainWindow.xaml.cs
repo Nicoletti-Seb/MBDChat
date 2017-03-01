@@ -22,6 +22,7 @@ namespace MBDChat
             //controller.addPair(new Pair("192.168.0.145", 2323));
             controller.addPair(new Pair("127.0.0.1", 2323));
             controller.addPair(new Pair("10.154.127.247", 2323));
+            controller.addPair(new Pair("10.154.127.245", 2323));
 
             /*List<Pair> pairs = new List<Pair>();
             pairs.Add(new Pair("192.168.0.5", "2323"));

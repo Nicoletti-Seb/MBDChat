@@ -32,6 +32,12 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.receipter
                 string json = Encoding.ASCII.GetString(bytes, 0, bytes.Length);
                 Message message = Parser.parseToMessage(json);
 
+                if(message == null)
+                {
+                    System.Console.WriteLine("Message null... " + json);
+                    continue;
+                }
+
                 //Update actions
                 foreach(Action action in actions)
                 {

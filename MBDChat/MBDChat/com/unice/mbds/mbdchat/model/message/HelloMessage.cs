@@ -3,7 +3,9 @@ using System.Runtime.Serialization;
 
 namespace MBDChat.com.unice.mbds.mbdchat.model.message
 {
-    [DataContract(Name ="HELLO")]
+    [AttributeMessage("HELLO_A")]
+    [AttributeMessage("HELLO_R")]
+    [DataContract]
     public class HelloMessage : Message
     {
         [DataMember]

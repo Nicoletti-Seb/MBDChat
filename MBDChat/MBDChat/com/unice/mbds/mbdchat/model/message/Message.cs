@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace MBDChat.com.unice.mbds.mbdchat.model
 {
-    [DataContract(Name="MessageParent")]
+    [DataContract]
     public class Message
     {
         [DataMember]

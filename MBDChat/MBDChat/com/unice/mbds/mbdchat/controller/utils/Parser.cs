@@ -1,7 +1,9 @@
 ﻿using MBDChat.com.unice.mbds.mbdchat.model;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Runtime.Serialization.Json;
 using System.Security.Cryptography;
 using System.Text;
@@ -10,12 +12,13 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.utils
 {
     class Parser
     {
-        private static DataContractJsonSerializer jsonParser = new DataContractJsonSerializer(typeof(Message));
         private static MemoryStream stream;
         private static StreamReader streamReader;
 
         public static string parseToJson(Message message)
         {
+            DataContractJsonSerializer jsonParser = new DataContractJsonSerializer(message.GetType());
+            Console.WriteLine(typeof(Message));
             stream = new MemoryStream();
             streamReader = new StreamReader(stream);
             jsonParser.WriteObject(stream, message);
@@ -32,9 +35,18 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.utils
         {
             Message deserializedMessage = new Message();
 
-            //TODO
             dynamic obj = JObject.Parse(json);
-            Console.WriteLine(obj.Type);
+            Assembly ass = typeof(Message).Assembly;
+            string typeObj = obj.Type;
+            Type type = searchTypeMessageLoad(ass , typeObj);
+
+            if(type == null)
+            {
+                Console.WriteLine("Message with type = " + obj.Type + " not found...");
+                return null;
+            }
+
+            DataContractJsonSerializer jsonParser = new DataContractJsonSerializer(type);
             try
             {
                 stream.Position = 0;
@@ -78,6 +90,25 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.utils
             }
             Console.WriteLine("hash:" + res.ToString());
             return res.ToString();
+        }
+
+
+        //Search dynamic type message
+        public static Type searchTypeMessageLoad(Assembly assembly, string nameType)
+        {   
+            foreach (Type type in assembly.GetTypes())
+            {
+                IEnumerable<AttributeMessage> allMessAttr = type.GetCustomAttributes<AttributeMessage>();
+                foreach(AttributeMessage attr in allMessAttr)
+                {
+                    if(attr.name == nameType)
+                    {
+                        return type;
+                    }
+                }
+            }
+
+            return null;
         }
     }
 }

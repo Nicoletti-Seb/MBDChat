@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace MBDChat.com.unice.mbds.mbdchat.model.message
 {
+    [AttributeMessage("PING/PONG")]
     [DataContract]
     public class PingPongMessage : Message
     {

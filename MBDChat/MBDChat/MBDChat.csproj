@@ -92,10 +92,11 @@
     <Compile Include="com\unice\mbds\mbdchat\controller\node\ChatRoom.cs" />
     <Compile Include="com\unice\mbds\mbdchat\controller\node\ChatRoomController.cs" />
     <Compile Include="com\unice\mbds\mbdchat\controller\receipter\Receipter.cs" />
-    <Compile Include="com\unice\mbds\mbdchat\model\message\ReceipterImp.cs" />
+    <Compile Include="com\unice\mbds\mbdchat\controller\receipter\ReceipterImp.cs" />
     <Compile Include="com\unice\mbds\mbdchat\controller\sender\Sender.cs" />
     <Compile Include="com\unice\mbds\mbdchat\controller\sender\SenderImpl.cs" />
     <Compile Include="com\unice\mbds\mbdchat\controller\utils\Parser.cs" />
+    <Compile Include="com\unice\mbds\mbdchat\model\message\AttributeMessage.cs" />
     <Compile Include="com\unice\mbds\mbdchat\model\message\GoodByeMessage.cs" />
     <Compile Include="com\unice\mbds\mbdchat\model\message\HelloMessage.cs" />
     <Compile Include="com\unice\mbds\mbdchat\model\message\Message.cs" />
