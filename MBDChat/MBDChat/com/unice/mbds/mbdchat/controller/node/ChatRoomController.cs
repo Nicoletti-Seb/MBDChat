@@ -80,7 +80,8 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.clientServer
         {
             actions = new List<Action>();
             actions.Add(new ActionGoodBye());
-            actions.Add(new ActionHello());
+            actions.Add(new ActionHelloA());
+            actions.Add(new ActionHelloR());
             actions.Add(new ActionMessage());
             actions.Add(new ActionPingPong());
         }
