@@ -33,8 +33,7 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.sender
 
         public void sendGoodByeBroadcast()
         {
-            GoodByeMessage gbm =  new GoodByeMessage(controller.getIpLocal());
-            System.Console.WriteLine(gbm);
+            GoodByeMessage gbm =  new GoodByeMessage(controller.getIpLocal(), controller.nickname);
             sendMessage(gbm);
         }
 
