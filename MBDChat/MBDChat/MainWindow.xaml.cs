@@ -16,20 +16,28 @@ namespace MBDChat
     /// </summary>
     public partial class MainWindow : Window
     {
-        ChatRoomController controller = ChatRoomController.Instance;
+        ChatRoomController controller;
 
-        public MainWindow()
+        public MainWindow(ChatRoomController chatRoomController)
         {
+            this.controller = chatRoomController;
+
             InitializeComponent();
 
             // add event pour mettre a jour la liste des pairs
             controller.eventUpdatePairs += updateListPair;
+
+            //controller.addPair(new Pair("127.0.0.1", 2323, "Seb"));
+            //controller.port = 2324;
+
+           // controller.addPair(new Pair("127.0.0.1", 2324, "Seb"));
+
             //controller.addPair(new Pair("10.154.106.235", 2323, ));
-            controller.addPair(new Pair("10.154.127.247", 2323, "David"));
+            /*controller.addPair(new Pair("10.154.127.247", 2323, "David"));
             controller.addPair(new Pair("10.154.106.235", 2323, "Seb"));
             controller.addPair(new Pair("10.154.127.244", 2323, "Aurore"));
             controller.addPair(new Pair("10.154.124.248", 2323, "Léo"));
-            controller.addPair(new Pair("10.154.127.235", 2323, "Thais"));
+            controller.addPair(new Pair("10.154.127.235", 2323, "Thais"));*/
         }
 
         void sendMessage(object sender, RoutedEventArgs e)
