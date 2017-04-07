@@ -19,8 +19,9 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.clientServer
         private const int MAX_PAIR = 4;
 
         // properties
-        public string nickname { get { return "Leo"; } }
+        public string nickname { get; set; }
         public int port { get; set; }
+        public string ipAddress { get; set; }
         public Sender sender { get; set; }
         public Receipter receipter { get; set; }
         public List<Pair> nodes { get; set; }
@@ -54,13 +55,19 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.clientServer
         }
 
         public string getIpLocal()
-        {   
+        {
+            if (ipAddress != null)
+            {
+                return ipAddress;
+            }
+
             var host = Dns.GetHostEntry(Dns.GetHostName());
             foreach (var ip in host.AddressList)
             {
                 if (ip.AddressFamily == AddressFamily.InterNetwork)
                 {
-                    return ip.ToString();
+                    ipAddress = ip.ToString();
+                    return ipAddress;
                 }
             }
             throw new System.Exception("Local IP Address Not Found!");

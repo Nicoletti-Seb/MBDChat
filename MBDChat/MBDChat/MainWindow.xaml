@@ -36,7 +36,7 @@
             </Grid>
         </Grid>
         <Grid Margin="10.2,223,10.4,10.4" Grid.Column="2">
-            <Button Content="HelloB" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" Margin="5" VerticalAlignment="Top" Width="50" Height="35" Click="HelloClick"/>
+            <Button Content="HelloA" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" Margin="5" VerticalAlignment="Top" Width="50" Height="35" Click="HelloClick"/>
             <Button Content="GoodBB" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Right" Margin="5" VerticalAlignment="Top" Width="50" Height="35" Click="GoodByeClick"/>
             <Button Content="Clear" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" Margin="5" VerticalAlignment="Bottom" Width="50" Height="35" Click="ClearClick"/>
             <Button Content="Ping" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Right" Margin="5" VerticalAlignment="Bottom" Width="50" Height="35" Click="PingClick"/>
