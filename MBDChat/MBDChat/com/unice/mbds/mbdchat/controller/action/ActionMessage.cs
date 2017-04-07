@@ -10,7 +10,9 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.action
 {
     public class ActionMessage: Action
     {
-        public ActionMessage() : base("MESSAGE"){}
+        private static readonly string[] TYPES = new string[] { "MESSAGE" };
+
+        public ActionMessage() : base(TYPES){}
 
         public override void onReceiver(Message message)
         {

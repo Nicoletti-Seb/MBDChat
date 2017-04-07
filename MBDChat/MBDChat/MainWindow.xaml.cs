@@ -24,20 +24,14 @@ namespace MBDChat
 
             InitializeComponent();
 
-            // add event pour mettre a jour la liste des pairs
+            //Update user list
+            foreach(Pair p in controller.nodes)
+            {
+                usersList.Items.Add(p.Addr);
+            }
+
+            // add event to update user list
             controller.eventUpdatePairs += updateListPair;
-
-            //controller.addPair(new Pair("127.0.0.1", 2323, "Seb"));
-            //controller.port = 2324;
-
-            // controller.addPair(new Pair("127.0.0.1", 2324, "Seb"));
-
-            //controller.addPair(new Pair("10.154.106.235", 2323, ));
-            /*controller.addPair(new Pair("10.154.127.247", 2323, "David"));
-            controller.addPair(new Pair("10.154.106.235", 2323, "Seb"));
-            controller.addPair(new Pair("10.154.127.244", 2323, "Aurore"));
-            controller.addPair(new Pair("10.154.124.248", 2323, "Léo"));
-            controller.addPair(new Pair("10.154.127.235", 2323, "Thais"));*/
 
             this.Title = controller.ipAddress + " - " + controller.nickname;
         }
@@ -137,15 +131,15 @@ namespace MBDChat
 
         private void ClearClick(object sender, RoutedEventArgs e)
         {
-            controller.nodes = new List<Pair>();
+            controller.nodes.Clear();
             System.Console.WriteLine("CLEAR : " + controller.nodes.Count);
             updateListPair();
         }
 
         private void PingClick(object sender, RoutedEventArgs e)
         {
-            PingPongMessage ppm = new PingPongMessage(controller.getIpLocal(), controller.port, Parser.TimestampNow().ToString());
-            //controller.sender.sendMessage(ppm);
+            PingPongMessage ppm = new PingPongMessage(controller.getIpLocal(), controller.port, Parser.TimestampNow().ToString(), true);
+            controller.sender.sendMessage(ppm);
         }
 
         private void onDblClickUser(object sender, MouseButtonEventArgs e)

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:MBDChat"
         xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="MBDChat.Parameters"
         mc:Ignorable="d"
-        Title="Parameters" Height="400" Width="300" ResizeMode="NoResize">
+        Title="Parameters" Height="400" Width="350" ResizeMode="NoResize">
 
     <Grid>
         <Grid.RowDefinitions>

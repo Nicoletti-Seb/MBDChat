@@ -97,8 +97,7 @@
     </Compile>
     <Compile Include="com\unice\mbds\mbdchat\controller\action\Action.cs" />
     <Compile Include="com\unice\mbds\mbdchat\controller\action\ActionGoodbye.cs" />
-    <Compile Include="com\unice\mbds\mbdchat\controller\action\ActionHelloR.cs" />
-    <Compile Include="com\unice\mbds\mbdchat\controller\action\ActionHelloA.cs" />
+    <Compile Include="com\unice\mbds\mbdchat\controller\action\ActionHello.cs" />
     <Compile Include="com\unice\mbds\mbdchat\controller\action\ActionMessage.cs" />
     <Compile Include="com\unice\mbds\mbdchat\controller\action\ActionPingPong.cs" />
     <Compile Include="com\unice\mbds\mbdchat\controller\node\ChatRoom.cs" />
@@ -113,7 +112,7 @@
     <Compile Include="com\unice\mbds\mbdchat\model\message\HelloMessage.cs" />
     <Compile Include="com\unice\mbds\mbdchat\model\message\Message.cs" />
     <Compile Include="com\unice\mbds\mbdchat\model\message\MessageMess.cs" />
-    <Compile Include="com\unice\mbds\mbdchat\model\message\Pair.cs" />
+    <Compile Include="com\unice\mbds\mbdchat\model\Pair.cs" />
     <Compile Include="com\unice\mbds\mbdchat\model\message\PingPongMessage.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

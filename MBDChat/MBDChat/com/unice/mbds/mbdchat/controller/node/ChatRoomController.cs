@@ -2,12 +2,12 @@
 using MBDChat.com.unice.mbds.mbdchat.controller.node;
 using MBDChat.com.unice.mbds.mbdchat.controller.receipter;
 using MBDChat.com.unice.mbds.mbdchat.controller.sender;
+using MBDChat.com.unice.mbds.mbdchat.controller.utils;
 using MBDChat.com.unice.mbds.mbdchat.model.message;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Net.NetworkInformation;
 using System.Net.Sockets;
+using System.Timers;
 
 namespace MBDChat.com.unice.mbds.mbdchat.model.clientServer
 {
@@ -16,7 +16,10 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.clientServer
         // att
         private List<ChatRoom> chatrooms = new List<ChatRoom>();
         private List<Action> actions;
+        private Timer timerPingPong;
+
         private const int MAX_PAIR = 4;
+        private const int DELAY_TIMER_PING_PONG = 10000;
 
         // properties
         public string nickname { get; set; }
@@ -52,6 +55,22 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.clientServer
             //Sender
             sender = new SenderImpl(socket, port, actions);
             sender.sendHelloBroadcast();
+
+            //PingPong Timer
+            initTimerPingPong();
+        }
+
+        private void initTimerPingPong()
+        {
+            timerPingPong = new Timer(DELAY_TIMER_PING_PONG);
+            timerPingPong.AutoReset = true;
+            timerPingPong.Elapsed += (s, e) =>
+            {
+                PingPongMessage ping = new PingPongMessage(getIpLocal(), port, Parser.TimestampNow().ToString(), true);
+                sender.sendMessage(ping);
+            };
+
+            timerPingPong.Start();
         }
 
         public string getIpLocal()
@@ -77,7 +96,7 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.clientServer
         {
             if (pair.Addr != getIpLocal() && !nodes.Contains(pair) && nodes.Count <= MAX_PAIR)
             {
-                System.Console.WriteLine("ADD PAIR " + pair.Addr);
+                System.Console.WriteLine(nickname + " ADD PAIR " + pair.Addr);
                 nodes.Add(pair);
 
                 //notify
@@ -90,7 +109,7 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.clientServer
 
         public void removePair(string addr)
         {
-            System.Console.WriteLine("REMOVE PAIR " + addr);
+            System.Console.WriteLine(nickname + " REMOVE PAIR " + addr);
             foreach (Pair p in nodes)
             {
                 if (p.Addr.Equals(addr))
@@ -112,8 +131,7 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.clientServer
         {
             actions = new List<Action>();
             actions.Add(new ActionGoodBye());
-            actions.Add(new ActionHelloA());
-            actions.Add(new ActionHelloR());
+            actions.Add(new ActionHello());
             actions.Add(new ActionMessage());
             actions.Add(new ActionPingPong());
         }

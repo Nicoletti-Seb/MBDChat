@@ -7,6 +7,7 @@ using System.Net.Sockets;
 using MBDChat.com.unice.mbds.mbdchat.model.message;
 using MBDChat.com.unice.mbds.mbdchat.controller.utils;
 using MBDChat.com.unice.mbds.mbdchat.controller.action;
+using System.Threading;
 
 namespace MBDChat.com.unice.mbds.mbdchat.controller.sender
 {
@@ -27,7 +28,7 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.sender
 
         public void sendHelloBroadcast()
         {
-            HelloMessage hm = new HelloMessage(controller.getIpLocal(), this.port, controller.nodes);
+            HelloMessage hm = new HelloMessage(controller.getIpLocal(), this.port, controller.nodes, true);
             sendMessage(hm);            
         }
 
@@ -37,20 +38,15 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.sender
             sendMessage(gbm);
         }
 
-        public void sendPingBroadcast()
+        public void sendMessage(Message message)
         {
             foreach (Pair pair in controller.nodes)
             {
-                Message message = new PingPongMessage(pair.Addr, this.port, Parser.TimestampNow().ToString());
-                sendMessage(message, pair);
-            }
-        }
-
-        public void sendMessage(Message message)
-        {
-            foreach(Pair pair in controller.nodes)
-            {
-                sendMessage(message, pair);
+                new Thread(() =>
+                {
+                    sendMessage(message, pair);
+                }).Start();
+                
             }
         }
 
@@ -61,9 +57,9 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.sender
 
             foreach (Action action in actions)
             {
-                if (action.Type == message.Type)
+                if (action.containsType(message.Type))
                 {
-                    action.onSender(message);
+                    action.onSender(message, pair);
                 }
             }
         }

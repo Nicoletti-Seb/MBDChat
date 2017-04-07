@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace MBDChat.com.unice.mbds.mbdchat.model.message
 {
-    [AttributeMessage("PING/PONG")]
+    [AttributeMessage("PING")]
+    [AttributeMessage("PONG")]
     [DataContract]
     public class PingPongMessage : Message
     {
@@ -20,7 +21,7 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.message
         [DataMember(Name = "timestamp")]
         public string Timestamp { get; set; }
 
-        public PingPongMessage(string addr_source, int port, string timestamp): base("PING/PONG")
+        public PingPongMessage(string addr_source, int port, string timestamp, bool isPing): base(isPing ? "PING" : "PONG")
         {
             AddrSrc = addr_source;
             PortSrc = port;

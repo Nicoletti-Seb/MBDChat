@@ -41,7 +41,7 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.receipter
                 //Update actions
                 foreach(Action action in actions)
                 {
-                    if(action.Type == message.Type)
+                    if(action.containsType(message.Type))
                     {
                         action.onReceiver(message);
                     }
