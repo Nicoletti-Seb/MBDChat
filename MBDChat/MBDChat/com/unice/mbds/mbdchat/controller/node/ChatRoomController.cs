@@ -20,10 +20,12 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.clientServer
     {
         private const int MAX_PAIR = 4;
         private const int DELAY_TIMER_PING_PONG = 10000;
+        private const int DELAY_TIMER_HELLO = 10000;
 
         // att
         private List<Action> actions = new List<Action>();
         private System.Timers.Timer timerPingPong;
+        private System.Timers.Timer timerHello;
 
         // properties
         public string nickname { get; set; }
@@ -66,8 +68,9 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.clientServer
             sender = new SenderImpl(socket, port, actions);
             sender.sendHelloBroadcast();
 
-            //PingPong Timer
+            //Timers
             initTimerPingPong();
+            initTimerHello();
         }
 
         private void initTimerPingPong()
@@ -83,6 +86,19 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.clientServer
             timerPingPong.Start();
         }
 
+        private void initTimerHello()
+        {
+            timerHello = new System.Timers.Timer(DELAY_TIMER_PING_PONG);
+            timerHello.AutoReset = true;
+            timerHello.Elapsed += (s, e) =>
+            {
+                if(nodes.Count >= MAX_PAIR) { return; }
+                HelloMessage hello = new HelloMessage(getIpLocal(), port, nodes, true);
+                sender.sendMessage(hello);
+            };
+
+            timerHello.Start();
+        }
         public string getIpLocal()
         {
             if (ipAddress != null)

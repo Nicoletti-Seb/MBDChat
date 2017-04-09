@@ -28,7 +28,7 @@
                     <RowDefinition Height="8*"/>
                 </Grid.RowDefinitions>
                 <Label Content="Rooms privées" HorizontalAlignment="Center" VerticalAlignment="Center" MinHeight="20"></Label>
-                <ListView Grid.Row="1" Name="chatList" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                <ListView Grid.Row="1" Name="chatList" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" MouseDoubleClick="onDblClickRooms"/>
             </Grid>
             
             <Grid Grid.Row="1" >

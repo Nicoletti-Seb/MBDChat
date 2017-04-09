@@ -1,4 +1,3 @@
-using MBDChat.com.unice.mbds.mbdchat.controller.node;
 using MBDChat.com.unice.mbds.mbdchat.controller.utils;
 using MBDChat.com.unice.mbds.mbdchat.model.clientServer;
 using MBDChat.com.unice.mbds.mbdchat.model.message;
@@ -148,8 +147,12 @@ namespace MBDChat
         private void ClearClick(object sender, RoutedEventArgs e)
         {
             controller.participants.Clear();
-            System.Console.WriteLine("CLEAR : " + controller.participants.Count);
+            controller.nodes.Clear();
+
+            Console.WriteLine("CLEAR PAIRS AND PARTICIPANTS");
+
             updateParticipants();
+            updatePairs();
         }
 
         private void PingClick(object sender, RoutedEventArgs e)
@@ -170,6 +173,12 @@ namespace MBDChat
             {
                 sendMessage();
             }
+        }
+
+        private void onDblClickRooms(object sender, MouseButtonEventArgs e)
+        {
+            string name = (string)usersList.SelectedItem;
+            controller.openPrivateRoom(name);
         }
     }
 }
