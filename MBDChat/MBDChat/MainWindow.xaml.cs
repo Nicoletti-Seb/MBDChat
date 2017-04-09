@@ -36,7 +36,12 @@ namespace MBDChat
             Title = controller.ipAddress + " - " + controller.nickname;
         }
 
-        void sendMessage(object sender, RoutedEventArgs e)
+        void onSendMessage(object sender, RoutedEventArgs e)
+        {
+            sendMessage();
+        }
+
+        private void sendMessage()
         {
             //Check empty message
             if (TextToSend.Text == "") { return; }
@@ -157,6 +162,14 @@ namespace MBDChat
         {
             string name = (string)usersList.SelectedItem;
             controller.openPrivateRoom(name);
+        }
+
+        private void onKeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter)
+            {
+                sendMessage();
+            }
         }
     }
 }

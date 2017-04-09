@@ -1,6 +1,7 @@
 ﻿using MBDChat.com.unice.mbds.mbdchat.controller.node;
 using MBDChat.com.unice.mbds.mbdchat.model.clientServer;
 using System.Windows;
+using System.Windows.Input;
 
 namespace MBDChat
 {
@@ -20,9 +21,14 @@ namespace MBDChat
             this.Title = "ChatRoom-" + controller.nickname + ": " + chatRoom.Participant;
         }
 
-        void sendMessage(object sender, RoutedEventArgs e)
+        void onSendMessage(object sender, RoutedEventArgs e)
         {
-            if(Message.Text == "")
+            sendMessage();
+        }
+
+        private void sendMessage()
+        {
+            if (Message.Text == "")
             {
                 return;
             }
@@ -59,6 +65,14 @@ namespace MBDChat
         {
             e.Cancel = true;
             Hide();
+        }
+
+        private void onKeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter)
+            {
+                sendMessage();
+            }
         }
     }
 }

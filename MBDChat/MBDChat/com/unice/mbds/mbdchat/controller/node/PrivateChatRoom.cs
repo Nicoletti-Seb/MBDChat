@@ -2,8 +2,6 @@
 using MBDChat.com.unice.mbds.mbdchat.model.clientServer;
 using MBDChat.com.unice.mbds.mbdchat.model.message;
 using System;
-using System.Threading;
-using System.Windows;
 
 namespace MBDChat.com.unice.mbds.mbdchat.controller.node
 {
@@ -45,17 +43,6 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.node
             {
                 view.Show();
             });
-            
-            /*if(view == null)
-            {
-                newViewHandler();
-                return;
-            }
-
-            view.Dispatcher.Invoke(() =>
-            {
-                view.Show();
-            });*/
         }
 
         public void close()
@@ -64,38 +51,11 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.node
             {
                 view.Hide();
             });
-            
-            /*if(view == null)
-            {
-                return;
-            }
-
-            view.Dispatcher.Invoke(() =>
-            {
-                view.Hide();
-            });*/
         }
 
         public override string ToString()
         {
             return Participant;
         }
-
-        /*private void newViewHandler()
-        {
-            //Create the window in another thread
-            Thread newWindowThread = new Thread(() =>
-            {
-                view = new ChatRoomView(this);
-                view.Show();
-                System.Windows.Threading.Dispatcher.Run();
-            });
-            newWindowThread.SetApartmentState(ApartmentState.STA);
-            newWindowThread.IsBackground = true;
-            newWindowThread.Start();
-
-            //Wait thread 
-            newWindowThread.Join();
-        }*/
     }
 }

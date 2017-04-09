@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:MBDChat"
         mc:Ignorable="d"
         Title="ChatRoom" Height="300" Width="300"
-        Closing="onClosing">
+        Closing="onClosing"
+        KeyDown="onKeyDown">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="3*"/>
@@ -20,7 +21,7 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <TextBox Grid.Column="0" Name="Message" Margin="5" />
-            <Button Grid.Column="1" x:Name="SendButton" Margin="20, 20" Content="Envoyer" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="sendMessage"/>
+            <Button Grid.Column="1" x:Name="SendButton" Margin="20, 20" Content="Envoyer" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="onSendMessage"/>
         </Grid>
     </Grid>
 </Window>

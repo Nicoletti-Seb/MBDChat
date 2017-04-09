@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525" 
         Closing="Window_Closing" Loaded="onLoaded"
+        KeyDown="onKeyDown"
         >
     <Grid>
         <Grid.ColumnDefinitions>
@@ -81,7 +82,7 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <TextBox Grid.Column="0" Name="TextToSend" Margin="5"/>
-                <Button Grid.Column="1" x:Name="SendButton" Margin="10.2,5,10.2,28.8" Content="Envoyer" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="sendMessage"/>
+                <Button Grid.Column="1" x:Name="SendButton" Margin="10.2,5,10.2,28.8" Content="Envoyer" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="onSendMessage"/>
             </Grid>
         </Grid>
     </Grid>
