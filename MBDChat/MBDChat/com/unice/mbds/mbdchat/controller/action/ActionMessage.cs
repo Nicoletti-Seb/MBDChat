@@ -13,6 +13,8 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.action
         public override void onReceiver(Message message)
         {
             MessageMess newMess = (MessageMess)message;
+            updateParticipants(newMess.Rootedby);
+
             if (haveAlreadyMessage(newMess) || newMess.Nickname == controller.nickname) {
                 Console.WriteLine(controller.nickname + " Already msg ", newMess.Rootedby);
                 return;
@@ -72,6 +74,16 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.action
             }
 
             return false;
+        }
+
+        private void updateParticipants(string rootedBy)
+        {
+            string [] usernames = rootedBy.Split(',');
+
+            foreach(string user in usernames)
+            {
+                controller.addParticipant(user.Trim());
+            }
         }
     }
 }

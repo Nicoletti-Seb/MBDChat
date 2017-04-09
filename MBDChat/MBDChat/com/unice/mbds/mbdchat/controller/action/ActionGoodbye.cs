@@ -12,10 +12,12 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.action
         public override void onReceiver(Message message)
         {
             base.onReceiver(message);
+            GoodByeMessage goodByeMessage = (GoodByeMessage)message;
 
             // remove from nodes
-            string addr = ((GoodByeMessage)message).AddrSrc;
-            controller.removePair(addr);
+            controller.removePair(goodByeMessage.AddrSrc);
+            controller.removeParticipant(goodByeMessage.Nickname);
+            controller.removeChatRoom(goodByeMessage.Nickname);
         }
     }
 }

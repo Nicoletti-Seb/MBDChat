@@ -145,7 +145,7 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.clientServer
 
         public void addParticipant(string name)
         {
-            if (participants.Contains(name))
+            if (name.Length <= 0 || participants.Contains(name) || name == nickname)
             {
                 return;
             }
@@ -165,6 +165,19 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.clientServer
 
             //notify
             eventUpdateParticipants?.Invoke();
+        }
+
+        public void removeChatRoom(string name)
+        {
+            foreach (PrivateChatRoom cr in chatRooms)
+            {
+                if (cr.Participant == name)
+                {
+                    chatRooms.Remove(cr);
+                    eventUpdateChatRooms?.Invoke();
+                    return;
+                }
+            }
         }
 
         public void openPrivateRoom(string dest)
