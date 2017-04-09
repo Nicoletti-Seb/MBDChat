@@ -1,12 +1,9 @@
 using MBDChat.com.unice.mbds.mbdchat.controller.node;
 using MBDChat.com.unice.mbds.mbdchat.controller.utils;
-using MBDChat.com.unice.mbds.mbdchat.model;
 using MBDChat.com.unice.mbds.mbdchat.model.clientServer;
 using MBDChat.com.unice.mbds.mbdchat.model.message;
 using System;
-using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace MBDChat
@@ -20,103 +17,117 @@ namespace MBDChat
 
         public MainWindow(ChatRoomController chatRoomController)
         {
+            InitializeComponent();
             this.controller = chatRoomController;
 
-            InitializeComponent();
+            //Update participants list
+            usersList.ItemsSource = controller.participants;
+            chatList.ItemsSource = controller.chatRooms;
+            pairsList.ItemsSource = controller.nodes;
 
-            //Update user list
-            foreach(Pair p in controller.nodes)
-            {
-                usersList.Items.Add(p.Addr);
-            }
+            //Init events
+            controller.eventUpdateParticipants += updateParticipants;
+            controller.eventUpdateChatRooms += updateChatRooms;
+            controller.eventUpdatePairs += updatePairs;
+            controller.eventReceiptedMessage += onReceiveMessage;
+            
 
-            // add event to update user list
-            controller.eventUpdatePairs += updateListPair;
-
-            this.Title = controller.ipAddress + " - " + controller.nickname;
+            //Title
+            Title = controller.ipAddress + " - " + controller.nickname;
         }
 
         void sendMessage(object sender, RoutedEventArgs e)
         {
-            // check empty message
+            //Check empty message
             if (TextToSend.Text == "") { return; }
 
-            string type = "MESSAGE";
-            string nickname = controller.nickname;
+            //Refresh textarea message
             string message = TextToSend.Text;
+            TextToSend.Text = "";
+
+            //Create message
+            string nickname = controller.nickname;
             string timestamp = Parser.TimestampNow().ToString();
             string dest = "";
-            string hash = Parser.toHash(type, nickname, message, timestamp, dest);
+            string hash = Parser.toHash("MESSAGE", nickname, message, timestamp, dest);
             string rootedby = controller.nickname;
-
             MessageMess msg = new MessageMess(nickname, message, timestamp, dest, hash, rootedby);
 
+            //Send message
             controller.sender.sendMessage(msg);
 
-            // add msg in messagelist
-            MessagesList.Items.Add(message);
-
-            // refresh textarea message
-            TextToSend.Text = "";
+            //Add msg in messagelist
+            string toDisplay = controller.nickname + " : " + message;
+            MessagesList.Items.Add(toDisplay);
         }
 
-        private void onReceiveMessage(string message)
+        private void onReceiveMessage(string message, string src)
         {
-            if (!MessagesList.Dispatcher.CheckAccess())//vérifie que le thread courant est bien le thread graphique (celui qui a créé la listbox)
+            string toDisplay = src + " : " + message;
+            if (!MessagesList.Dispatcher.CheckAccess())
             {
-                MessagesList.Dispatcher.Invoke(() => { MessagesList.Items.Add(message); });
+                MessagesList.Dispatcher.Invoke(() => { MessagesList.Items.Add(toDisplay); });
             }
             else
             {
-                MessagesList.Items.Add(message);
+                MessagesList.Items.Add(toDisplay);
             }
         }
 
-        public void updateListPair()
+        public void updateParticipants()
         {
-            // CHANGER PAR LIST USER ET DISPLAY NICKNAME
             if (!usersList.Dispatcher.CheckAccess())
             {
                 usersList.Dispatcher.Invoke(() =>
                 { 
-                    System.Console.WriteLine("UPDATE NODES");
-
-                    // update list user
-                    usersList.Items.Clear();
-                    foreach (Pair p in controller.nodes)
-                    {
-                        usersList.Items.Add(p.Addr);
-                    }
                     usersList.Items.Refresh();
                 });
             }
             else
             {
-                System.Console.WriteLine("UPDATE NODES");
-
-                // update list user
-                usersList.Items.Clear();
-                foreach (Pair p in controller.nodes)
-                {
-                    usersList.Items.Add(p.Addr);
-                }
                 usersList.Items.Refresh();
             }
-            
+        }
+
+        public void updateChatRooms()
+        {
+            if (!chatList.Dispatcher.CheckAccess())
+            {
+                chatList.Dispatcher.Invoke(() =>
+                {
+                    chatList.Items.Refresh();
+                });
+            }
+            else
+            {
+                chatList.Items.Refresh();
+            }
+        }
+
+        public void updatePairs()
+        {
+            if (!pairsList.Dispatcher.CheckAccess())
+            {
+                pairsList.Dispatcher.Invoke(() =>
+                {
+                    pairsList.Items.Refresh();
+                });
+            }
+            else
+            {
+                pairsList.Items.Refresh();
+            }
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             controller.sender.sendGoodByeBroadcast();
-            Console.WriteLine("WINDOW_CLOSING");
             Environment.Exit(0);
         }
 
         private void onLoaded(object sender, RoutedEventArgs e)
         {
-           System.Console.WriteLine("ONLOAD");
            controller.startUp();
-           controller.receipter.events += onReceiveMessage;
         }
 
         private void HelloClick(object sender, RoutedEventArgs e)
@@ -131,9 +142,9 @@ namespace MBDChat
 
         private void ClearClick(object sender, RoutedEventArgs e)
         {
-            controller.nodes.Clear();
-            System.Console.WriteLine("CLEAR : " + controller.nodes.Count);
-            updateListPair();
+            controller.participants.Clear();
+            System.Console.WriteLine("CLEAR : " + controller.participants.Count);
+            updateParticipants();
         }
 
         private void PingClick(object sender, RoutedEventArgs e)
@@ -144,7 +155,8 @@ namespace MBDChat
 
         private void onDblClickUser(object sender, MouseButtonEventArgs e)
         {
-            new ChatRoomView(new ChatRoom()).Show();
+            string name = (string)usersList.SelectedItem;
+            controller.openPrivateRoom(name);
         }
     }
 }

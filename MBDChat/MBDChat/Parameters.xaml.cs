@@ -37,26 +37,27 @@ namespace MBDChat
         {
             //Port
             try {
-                controller.port = Int32.Parse(this.PortStarter.Text);
+                controller.port = Int32.Parse(PortStarter.Text);
             } catch (FormatException e) {
-                this.PortStarter.Text = "";
+                PortStarter.Text = "";
                 return;
             }
 
             //New Address ip
             int portNode = -1;
             try {
-                portNode = Int32.Parse(this.PortNode.Text);
+                portNode = Int32.Parse(PortNode.Text);
             } catch (FormatException e) {
-                this.PortNode.Text = "";
+                PortNode.Text = "";
                 return;
             }
 
-            controller.nickname = this.NameStarter.Text;
-            controller.ipAddress = (string)this.IpStarter.SelectedValue;
-            controller.addPair(new Pair(this.AddressIpNode.Text, portNode, this.NameNode.Text));
+            controller.nickname = NameStarter.Text;
+            controller.ipAddress = (string)IpStarter.SelectedValue;
+            controller.addParticipant(NameNode.Text);
+            controller.addPair(new Pair(AddressIpNode.Text, portNode));
 
-            this.Hide();
+            Hide();
             new MainWindow(controller).Show();
         }
     }

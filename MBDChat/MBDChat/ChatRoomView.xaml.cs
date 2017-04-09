@@ -1,17 +1,6 @@
 ﻿using MBDChat.com.unice.mbds.mbdchat.controller.node;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MBDChat.com.unice.mbds.mbdchat.model.clientServer;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace MBDChat
 {
@@ -20,15 +9,56 @@ namespace MBDChat
     /// </summary>
     public partial class ChatRoomView : Window
     {
-        private ChatRoom chatRoom;
-        public ChatRoomView(ChatRoom chatRoom)
+        private ChatRoomController controller = ChatRoomController.Instance;
+
+        private PrivateChatRoom chatRoom;
+
+        public ChatRoomView(PrivateChatRoom chatRoom)
         {
             InitializeComponent();
+            this.chatRoom = chatRoom;
+            this.Title = "ChatRoom-" + controller.nickname + ": " + chatRoom.Participant;
         }
 
         void sendMessage(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine("Send message");
+            if(Message.Text == "")
+            {
+                return;
+            }
+
+            //Refresh textarea message
+            string message = Message.Text;
+            Message.Text = "";
+
+            //Send
+            chatRoom.sendMessage(message);
+
+            //Add msg in messagelist
+            string toDisplay = controller.nickname + " : " + message;
+            MessagesList.Items.Add(toDisplay);
+        }
+
+        public void reveivedMessage(string msg)
+        {
+            string toDisplay = chatRoom.Participant + " : " + msg;
+            if (!MessagesList.Dispatcher.CheckAccess())
+            {
+                MessagesList.Dispatcher.Invoke(() =>
+                {
+                    MessagesList.Items.Add(toDisplay);
+                });
+            }
+            else
+            {
+                MessagesList.Items.Add(toDisplay);
+            }
+        }
+
+        private void onClosing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            e.Cancel = true;
+            Hide();
         }
     }
 }

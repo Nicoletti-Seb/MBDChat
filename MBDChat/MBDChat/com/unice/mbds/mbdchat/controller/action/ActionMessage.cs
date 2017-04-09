@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MBDChat.com.unice.mbds.mbdchat.model;
 using MBDChat.com.unice.mbds.mbdchat.model.message;
 
@@ -17,27 +13,37 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.action
         public override void onReceiver(Message message)
         {
             MessageMess newMess = (MessageMess)message;
-            if (haveAlreadyMessage(newMess)) { return; }
-            else { base.onReceiver(message); }
-
-            bool isPrivateMess = isPrivateMessage(newMess.Destinataire);
-            string nickname = getNickname(newMess.Destinataire);
-
-            if (isPrivateMess && nickname == controller.nickname)
-            {
-                //private room
-                Console.WriteLine("Private room " + newMess.Msg);
+            if (haveAlreadyMessage(newMess) || newMess.Nickname == controller.nickname) {
+                Console.WriteLine(controller.nickname + " Already msg ", newMess.Rootedby);
                 return;
             }
-            else if( nickname.Length > 0)
-            {
-                //Update nickname room 
-                Console.WriteLine("Update room " + newMess.Msg);
+            else {
+                Console.WriteLine(controller.nickname + " new msg ", newMess.Rootedby);
+                base.onReceiver(message);
             }
 
+            bool isPrivateMess = isPrivateMessage(newMess.Destinataire);
+            string nicknameDest = getNickname(newMess.Destinataire);
+
+            if (isPrivateMess && nicknameDest == controller.nickname)
+            {
+                //Message for me in private room
+                Console.WriteLine("Private room " + newMess.Msg);
+                controller.onReveivedMessage(newMess.Msg, newMess.Nickname, nicknameDest);
+                return;
+            }
+            else if(nicknameDest.Length <= 0)
+            {
+                //Message for me in main room
+                Console.WriteLine("Update main room " + newMess.Msg);
+                controller.onReveivedMessage(newMess.Msg, newMess.Nickname, nicknameDest);
+            }
+
+            //Update RootedBy field
             if(newMess.Rootedby.Length  <= 0) { newMess.Rootedby += controller.nickname; }
             else { newMess.Rootedby += "," + controller.nickname; }
 
+            //Send message with new RootedBy field
             controller.sender.sendMessage(newMess);
         }
 
@@ -58,6 +64,7 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.action
 
         private bool haveAlreadyMessage(MessageMess messToCheck)
         {
+            string rootedBy = messToCheck.Rootedby;
             foreach(Message msg in HistoryReceiver)
             {
                 MessageMess mess = (MessageMess)msg;

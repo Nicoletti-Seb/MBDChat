@@ -1,6 +1,5 @@
 ﻿using MBDChat.com.unice.mbds.mbdchat.model.clientServer;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using MBDChat.com.unice.mbds.mbdchat.model;
 using System.Net.Sockets;

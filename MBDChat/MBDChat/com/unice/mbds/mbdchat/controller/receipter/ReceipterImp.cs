@@ -18,7 +18,6 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.receipter
         private Thread thread;
         private bool continued = false;
         private List<Action> actions;
-        public event EventMessage events;
         
         public ReceipterImp(List<Action> actions) {
             this.actions = actions;
@@ -46,12 +45,6 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.receipter
                         action.onReceiver(message);
                     }
                 }
-
-                //notify
-                if(events != null)
-                {
-                    events.Invoke(json);
-                }
             }
         }
 
@@ -61,6 +54,8 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.receipter
             ip = new IPEndPoint(IPAddress.Any, port);
 
             thread = new Thread(receiptMessage);
+            //https://msdn.microsoft.com/en-us/library/windows/desktop/ms680112(v=vs.85).aspx
+            thread.IsBackground = true;
             continued = true;
             thread.Start();
         }

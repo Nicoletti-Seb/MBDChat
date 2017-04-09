@@ -16,21 +16,11 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.message
 
         [DataMember(Name = "port")]
         public int Port { get; set; }
-
-        public string Nickname { get; set; }
         
         public Pair(string addr, int port)
         {
             Addr = addr;
             Port = port;
-            Nickname = addr;
-        }
-
-        public Pair(string addr, int port, string nickname)
-        {
-            Addr = addr;
-            Port = port;
-            Nickname = nickname;
         }
 
         public IPEndPoint ep
