@@ -1,3 +1,4 @@
+using MBDChat.com.unice.mbds.mbdchat.controller.node;
 using MBDChat.com.unice.mbds.mbdchat.controller.utils;
 using MBDChat.com.unice.mbds.mbdchat.model.clientServer;
 using MBDChat.com.unice.mbds.mbdchat.model.message;
@@ -125,7 +126,8 @@ namespace MBDChat
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            controller.sender.sendGoodByeBroadcast();
+            GoodByeMessage goodBye = new GoodByeMessage(controller.getIpLocal(), controller.nickname);
+            controller.sender.sendMessage(goodBye);
             Environment.Exit(0);
         }
 
@@ -136,12 +138,14 @@ namespace MBDChat
 
         private void HelloClick(object sender, RoutedEventArgs e)
         {
-            controller.sender.sendHelloBroadcast();
+            HelloMessage helloMessage = new HelloMessage(controller.getIpLocal(), controller.port, controller.nodes, true);
+            controller.sender.sendMessage(helloMessage);
         }
 
         private void GoodByeClick(object sender, RoutedEventArgs e)
         {
-            controller.sender.sendGoodByeBroadcast();
+            GoodByeMessage goodBye = new GoodByeMessage(controller.getIpLocal(), controller.nickname);
+            controller.sender.sendMessage(goodBye);
         }
 
         private void ClearClick(object sender, RoutedEventArgs e)
@@ -149,10 +153,17 @@ namespace MBDChat
             controller.participants.Clear();
             controller.nodes.Clear();
 
-            Console.WriteLine("CLEAR PAIRS AND PARTICIPANTS");
+            foreach(PrivateChatRoom chatRoom in controller.chatRooms)
+            {
+                chatRoom.close();
+            }
+            controller.chatRooms.Clear();
+
+            Console.WriteLine("CLEAR ALL");
 
             updateParticipants();
             updatePairs();
+            updateChatRooms();
         }
 
         private void PingClick(object sender, RoutedEventArgs e)

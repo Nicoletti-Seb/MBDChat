@@ -66,7 +66,10 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.clientServer
 
             //Sender
             sender = new SenderImpl(socket, port, actions);
-            sender.sendHelloBroadcast();
+            
+            //Send hello broadcast
+            HelloMessage helloMessage = new HelloMessage(getIpLocal(), port, nodes, true);
+            sender.sendMessage(helloMessage);
 
             //Timers
             initTimerPingPong();
@@ -182,6 +185,11 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.clientServer
 
         public void openPrivateRoom(string dest)
         {
+            if(dest == null || dest.Length <= 0)
+            {
+                return;
+            }
+
             foreach(PrivateChatRoom cr in chatRooms)
             {
                 if(cr.Participant == dest)
@@ -227,7 +235,7 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.clientServer
                 eventUpdateChatRooms?.Invoke();
 
                 chatRoom.display();
-                chatRoom.receiveMessage(src);
+                chatRoom.receiveMessage(msg);
 
                 System.Windows.Threading.Dispatcher.Run();//Call in the main thread
             });

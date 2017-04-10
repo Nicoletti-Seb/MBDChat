@@ -25,18 +25,6 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.sender
             this.actions = actions;
         }
 
-        public void sendHelloBroadcast()
-        {
-            HelloMessage hm = new HelloMessage(controller.getIpLocal(), this.port, controller.nodes, true);
-            sendMessage(hm);            
-        }
-
-        public void sendGoodByeBroadcast()
-        {
-            GoodByeMessage gbm =  new GoodByeMessage(controller.getIpLocal(), controller.nickname);
-            sendMessage(gbm);
-        }
-
         public void sendMessage(Message message)
         {
             foreach (Pair pair in controller.nodes)
