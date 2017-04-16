@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MBDChat.com.unice.mbds.mbdchat.model.message
 {
@@ -27,9 +23,17 @@ namespace MBDChat.com.unice.mbds.mbdchat.model.message
         {
             get
             {
-                IPAddress target = IPAddress.Parse(Addr);
-                IPEndPoint ep = new IPEndPoint(target, Port);
-                return ep;
+                try
+                {
+                    IPAddress target = IPAddress.Parse(Addr);
+                    IPEndPoint ep = new IPEndPoint(target, Port);
+                    return ep;
+                } catch(FormatException e)
+                {
+                    return null;
+                }
+                
+                
             }
         }
 

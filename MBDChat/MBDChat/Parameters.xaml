@@ -82,7 +82,7 @@
                     <RowDefinition Height="3*"/>
                 </Grid.RowDefinitions>
 
-                <Label Grid.Row="0" Content="Noeud d'accroche:"/>
+                <CheckBox Grid.Row="0" Name="ContainNode"  Content="Noeud d'accroche" Click="CheckBox_Checked"/>
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />

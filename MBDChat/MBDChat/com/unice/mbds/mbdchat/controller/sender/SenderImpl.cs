@@ -7,6 +7,7 @@ using MBDChat.com.unice.mbds.mbdchat.model.message;
 using MBDChat.com.unice.mbds.mbdchat.controller.utils;
 using MBDChat.com.unice.mbds.mbdchat.controller.action;
 using System.Threading;
+using System.Net;
 
 namespace MBDChat.com.unice.mbds.mbdchat.controller.sender
 {
@@ -39,9 +40,21 @@ namespace MBDChat.com.unice.mbds.mbdchat.controller.sender
 
         public void sendMessage(Message message, Pair pair)
         {
-            byte[] msg = Encoding.ASCII.GetBytes(Parser.parseToJson(message));
-            socket.SendTo(msg, pair.ep);
+            //Verify Address
+            EndPoint ep = pair.ep;
+            if(ep == null)
+            {
+                controller.removePair(pair.Addr);
+                return;
+            }
 
+            //Create message
+            byte[] msg = Encoding.ASCII.GetBytes(Parser.parseToJson(message));
+
+            //Send message
+            socket.SendTo(msg, ep);
+
+            //Updates actions
             foreach (Action action in actions)
             {
                 if (action.containsType(message.Type))

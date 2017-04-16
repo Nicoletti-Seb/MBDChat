@@ -17,7 +17,12 @@ namespace MBDChat
         public Parameters()
         {
             InitializeComponent();
+
+            //Add ip client
             IpStarter.Items.Add(getIpLocal());
+
+            //Set checkbox to true
+            ContainNode.IsChecked = true;
         }
 
         public string getIpLocal()
@@ -43,22 +48,44 @@ namespace MBDChat
                 return;
             }
 
-            //New Address ip
-            int portNode = -1;
-            try {
-                portNode = Int32.Parse(PortNode.Text);
-            } catch (FormatException e) {
-                PortNode.Text = "";
-                return;
-            }
-
             controller.nickname = NameStarter.Text;
             controller.ipAddress = (string)IpStarter.SelectedValue;
-            controller.addParticipant(NameNode.Text);
-            controller.addPair(new Pair(AddressIpNode.Text, portNode));
 
+            //New Address ip
+            if (ContainNode.IsChecked.Value)
+            {
+                int portNode = -1;
+                try
+                {
+                    portNode = Int32.Parse(PortNode.Text);
+                }
+                catch (FormatException e)
+                {
+                    PortNode.Text = "";
+                    return;
+                }
+                controller.addParticipant(NameNode.Text);
+                controller.addPair(new Pair(AddressIpNode.Text, portNode));
+            }
+            
             Hide();
             new MainWindow(controller).Show();
+        }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            if (ContainNode.IsChecked.Value)
+            {
+                AddressIpNode.IsEnabled = true;
+                PortNode.IsEnabled = true;
+                NameNode.IsEnabled = true;
+            }
+            else
+            {
+                AddressIpNode.IsEnabled = false;
+                PortNode.IsEnabled = false;
+                NameNode.IsEnabled = false;
+            }
         }
     }
 }
